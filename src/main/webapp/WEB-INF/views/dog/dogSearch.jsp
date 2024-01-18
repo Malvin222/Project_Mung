@@ -141,7 +141,7 @@
 
     <div class="checkbox-group">
         <p>나이</p>
-        <% String[] ages = {"전 연령용", "자견용", "성견용"}; %>
+        <% String[] ages = {"전 연령용", "퍼피", "어덜트", "시니어"}; %>
         <% for (int i = 0; i < ages.length; i++) { %>
         <input type="checkbox" id="ageCheckbox<%= i %>">
         <label for="ageCheckbox<%= i %>" class="checkbox-label"><%= ages[i] %></label>

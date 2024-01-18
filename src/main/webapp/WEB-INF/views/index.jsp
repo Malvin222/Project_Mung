@@ -33,7 +33,13 @@
 
 <!-- 메인 로고 -->
 <div class="main-logo" align="center">
-    <a href="/dog/dogSearch"><img src="/imgs/mung-logo.png" width="250"></a>
+
+    <a href="/dog/dogSearch"><img src="/imgs/m1.png" width="80"><img src="/imgs/mung-logo.png" width="250"></a><br>
+    <a href="/dog/dogSearch"><img src="/imgs/m2.png" width="80"><img src="/imgs/mung-logo.png" width="250"></a><br>
+    <a href="/dog/dogSearch"><img src="/imgs/m3.png" width="80"><img src="/imgs/mung-logo.png" width="250"></a><br>
+    <a href="/dog/dogSearch"><img src="/imgs/m4.png" width="80"><img src="/imgs/mung-logo.png" width="250"></a><br>
+    <a href="/dog/dogSearch"><img src="/imgs/m5.png" width="80"><img src="/imgs/mung-logo.png" width="250"></a>
+
 </div>
 
 
