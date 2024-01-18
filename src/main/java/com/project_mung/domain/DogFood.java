@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DogFoodDomain {
+public class DogFood {
 
 
-    private long dogfoodid;         // 아이디
+    private int dogfoodid;         // 아이디
     private String dogfoodname;     // 사료명
     private String dogfoodprice;    // 사료 가격
     private String dogage;          // 강아지 나이
