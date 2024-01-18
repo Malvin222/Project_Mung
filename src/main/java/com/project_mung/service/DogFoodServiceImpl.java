@@ -1,4 +1,4 @@
 package com.project_mung.service;
 
-public class DogFoodServiceImpl {
+public class DogFoodServiceImpl implements DogFoodService {
 }
