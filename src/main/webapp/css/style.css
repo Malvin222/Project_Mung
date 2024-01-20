@@ -17,7 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; /* 화면 크기가 작아질 때 줄 바꿈이 일어나도록 설정 */
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 
@@ -89,6 +89,14 @@ p {
     background-color: #f9f9f9;
 }
 
+.result-container th {
+    width: 150px;
+    font-size: 17px;
+}
+.result-container td {
+    text-align: center;
+}
+
 .result-item {
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -133,6 +141,11 @@ footer {
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+}
+
+footer {
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 

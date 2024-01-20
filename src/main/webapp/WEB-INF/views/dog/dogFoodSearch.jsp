@@ -65,7 +65,7 @@
     <table class="result-table">
         <thead>
         <tr>
-            <th>사료명</th>
+            <th style="width:500px" !important>사료명</th>
             <th>브랜드</th>
             <th>가격</th>
             <th>나이</th>
