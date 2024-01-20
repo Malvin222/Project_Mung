@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface DogFoodMapper {
-    DogFood selectDogFoodById(int dogfoodid);
+    DogFood selectDogFoodById(int id);
     List<DogFood> getAllDogFood();
 
     List<DogFood> selectDogFoodByKeyword(String searchKeyword);

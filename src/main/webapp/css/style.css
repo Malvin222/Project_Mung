@@ -76,8 +76,6 @@ body {
 /* 체크박스 체크 상태일 때의 스타일 */
 .checkbox-group input:checked + .checkbox-label {
     background-color: #e3ccc3; /* 체크되었을 때의 배경색 */
-    color: white; /* 체크되었을 때의 글자색 */
-    border: 1px solid #e3ccc3; /* 체크되었을 때의 테두리색 */
 }
 
 p {
