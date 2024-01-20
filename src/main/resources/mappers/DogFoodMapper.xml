@@ -2,14 +2,39 @@
 
 
 <mapper namespace="com.project_mung.mapper.DogFoodMapper">
+
+    <!-- DogFood 객체와 데이터베이스 테이블 간의 결과를 매핑하는 resultMap -->
+    <resultMap id="dogFoodResultMap" type="com.project_mung.domain.DogFood">
+        <id property="dogfoodid" column="dogfoodid"/>
+        <result property="dogfoodname" column="dogfoodname"/>
+        <result property="dogfoodprice" column="dogfoodprice"/>
+        <result property="dogage" column="dogage"/>
+        <result property="dogfoodfeat" column="dogfoodfeat"/>
+        <result property="dogfoodbrand" column="dogfoodbrand"/>
+        <result property="dogfoodnut" column="dogfoodnut"/>
+        <result property="dogfoodwei" column="dogfoodwei"/>
+        <result property="dogfooddetail" column="dogfooddetail"/>
+        <result property="link" column="link"/>
+    </resultMap>
+
     <!-- SELECT 문 -->
     <select id="selectDogFoodById" parameterType="int" >
-        SELECT * FROM dogfood WHERE selectAllDogFood = #{selectAllDogFood}
+        SELECT * FROM dogfood WHERE dogfoodid = #{dogfoodid}
     </select>
 
     <!-- 리스트를 조회하는 SQL 매핑 -->
     <select id="getAllDogFood">
-        SELECT * FROM dogfood
+        SELECT * FROM dogfood order by dogfoodbrand
     </select>
+
+    <select id="selectDogFoodByKeyword" parameterType="string" resultType="com.project_mung.domain.DogFood">
+        SELECT * FROM dogfood WHERE LOWER(dogfoodname) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+    </select>
+
+    <select id="getAllDogFoodBrands" resultType="string">
+        SELECT DISTINCT dogfoodbrand FROM dogfood order by dogfoodbrand
+    </select>
+
+
 
 </mapper>

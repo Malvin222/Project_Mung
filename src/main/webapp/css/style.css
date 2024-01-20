@@ -1,0 +1,138 @@
+body {
+    background: #f1eee9;
+    margin: 0; /* body의 기본 마진을 제거하여 전체 화면을 채우도록 설정 (선택적) */
+    padding: 0; /* body의 기본 패딩을 제거하여 전체 화면을 채우도록 설정 (선택적) */
+    font-family: "Noto Sans KR ExtraLight";
+    color: #4b4a4a;
+}
+
+.main-logo {
+    margin-top: 50px;
+    align-items: center;
+
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* 화면 크기가 작아질 때 줄 바꿈이 일어나도록 설정 */
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.search-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.search-button {
+    padding: 10px;
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-group input {
+    display: none; /* 실제 체크박스를 숨김 */
+}
+.checkbox-group-container {
+    display: flex;
+    margin: 20px 20px 20px 20px;
+    border: 1px solid #ccc; /* 외곽선 추가 */
+    border-radius: 10px; /* 동그라미 모양을 위해 조절 */
+    padding: 10px 0px 30px 20px;
+    background-color: white;
+}
+
+.checkbox-group {
+    margin-right: 30px; /* 브랜드와 나이 체크박스 그룹 간의 간격 조절 */
+}
+
+.checkbox-label {
+    font-size: 14px;
+    padding: 4px 8px; /* 체크박스 스타일을 위한 여백 추가 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 10px; /* 라벨 간 여백을 늘림 */
+    display: inline-block; /* 인라인 요소로 설정 */
+}
+
+
+/* 체크박스 체크 상태일 때의 스타일 */
+.checkbox-group input:checked + .checkbox-label {
+    background-color: #e3ccc3; /* 체크되었을 때의 배경색 */
+    color: white; /* 체크되었을 때의 글자색 */
+    border: 1px solid #e3ccc3; /* 체크되었을 때의 테두리색 */
+}
+
+p {
+    font-family: "Noto Sans KR SemiBold";
+}
+
+.result-container {
+    margin: 20px 20px 20px 20px;
+    background-color: #f9f9f9;
+}
+
+.result-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.result-item h3 {
+    margin-top: 0;
+}
+
+/* Footer 스타일 */
+footer {
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
+}
+/* 페이징 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    z-index: 1; /* 페이지 버튼이 상위로 올라오도록 z-index 추가 */
+}
+
+.pagination a {
+    color: #4b4a4a;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #e3ccc3;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+

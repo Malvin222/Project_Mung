@@ -1,148 +1,13 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <html>
 <head>
     <title>강아지 사료 검색</title>
-    <style>
-        body {
-            background: #f1eee9;
-            margin: 0; /* body의 기본 마진을 제거하여 전체 화면을 채우도록 설정 (선택적) */
-            padding: 0; /* body의 기본 패딩을 제거하여 전체 화면을 채우도록 설정 (선택적) */
-            font-family: "Noto Sans KR ExtraLight";
-            color: #4b4a4a;
-        }
-
-        .main-logo {
-            margin-top: 50px;
-            align-items: center;
-
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap; /* 화면 크기가 작아질 때 줄 바꿈이 일어나도록 설정 */
-            margin-top: 50px;
-            margin-bottom: 30px;
-        }
-
-        .search-container input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 300px;
-            box-sizing: border-box;
-        }
-
-        .search-button {
-            padding: 10px;
-            background-color: #e3ccc3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-icon {
-            width: 18px;
-            height: 18px;
-        }
-
-        .checkbox-group input {
-            display: none; /* 실제 체크박스를 숨김 */
-        }
-        .checkbox-group-container {
-            display: flex;
-            margin: 20px 20px 20px 20px;
-            border: 1px solid #ccc; /* 외곽선 추가 */
-            border-radius: 10px; /* 동그라미 모양을 위해 조절 */
-            padding: 10px 0px 30px 20px;
-            background-color: white;
-        }
-
-        .checkbox-group {
-            margin-right: 30px; /* 브랜드와 나이 체크박스 그룹 간의 간격 조절 */
-        }
-
-        .checkbox-label {
-            font-size: 14px;
-            padding: 4px 8px; /* 체크박스 스타일을 위한 여백 추가 */
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-            user-select: none;
-            margin-bottom: 10px; /* 라벨 간 여백을 늘림 */
-            display: inline-block; /* 인라인 요소로 설정 */
-        }
-
-
-        /* 체크박스 체크 상태일 때의 스타일 */
-        .checkbox-group input:checked + .checkbox-label {
-            background-color: #e3ccc3; /* 체크되었을 때의 배경색 */
-        }
-
-        p {
-            font-family: "Noto Sans KR SemiBold";
-        }
-
-        .result-container {
-            margin: 20px 20px 20px 20px;
-            background-color: #f9f9f9;
-        }
-
-        .result-item {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-
-        .result-item h3 {
-            margin-top: 0;
-        }
-
-        /* Footer 스타일 */
-        footer {
-            text-align: center;
-            padding: 10px;
-            bottom: 0;
-            width: 100%;
-            z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
-        }
-        /* 페이징 스타일 */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            z-index: 1; /* 페이지 버튼이 상위로 올라오도록 z-index 추가 */
-        }
-
-        .pagination a {
-            color: #4b4a4a;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            border: 1px solid #ddd;
-            margin: 0 4px;
-        }
-
-        .pagination a.active {
-            background-color: #e3ccc3;
-            color: white;
-        }
-
-        .pagination a:hover:not(.active) {
-            background-color: #ddd;
-        }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -151,17 +16,18 @@
     <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
 
-<!-- 사료 검색창 -->
-<div class="search-container">
-    <input type="text" placeholder="사료 검색하기">
-    <button class="search-button">
-        <img src="/imgs/search-icon.png" class="search-icon" width="14">
-    </button>
-</div>
+<!-- 검색 폼 -->
+<form action="/dog/dogSearch" method="GET" id="searchForm">
+    <div class="search-container">
+        <input type="text" id="search-input" name="searchKeyword" placeholder="사료 검색하기">
+        <button class="search-button" type="submit">
+            <img src="/imgs/search-icon.png" class="search-icon" width="14">
+        </button>
+    </div>
+</form>
 
 <!-- 체크 그룹 컨테이너 -->
 <div class="checkbox-group-container">
-
     <!-- 체크 창 -->
     <div class="checkbox-group">
         <p>브랜드</p>
@@ -202,28 +68,32 @@
 
 </div>
 
-
 <!-- 검색 결과 리스트 컨테이너 -->
-<div class="result-container">
+<div class="result-container" id="resultContainer">
     <table class="result-table">
         <thead>
         <tr>
             <th>사료명</th>
             <th>브랜드</th>
+            <th>가격</th>
             <!-- 다른 필드에 대한 헤더 추가 -->
         </tr>
         </thead>
         <tbody>
         <c:forEach var="dogFood" items="${dogFoodList}">
-            <tr class="result-item">
-                <td>${dogFood.dogfoodname}</td>
-                <td>${dogFood.dogfoodbrand}</td>
-                <!-- 다른 필드에 대한 데이터 추가 -->
-            </tr>
+            <c:if test="${fn:containsIgnoreCase(dogFood.dogfoodname, searchKeyword) or fn:containsIgnoreCase(dogFood.dogfoodbrand, searchKeyword)}">
+                <tr class="result-item">
+                    <td>${dogFood.dogfoodname}</td>
+                    <td>${dogFood.dogfoodbrand}</td>
+                    <td>${dogFood.dogfoodprice}</td>
+                    <!-- 추가로 필요한 정보들을 포함할 수 있습니다. -->
+                </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>
 </div>
+
 
 <!-- 페이징 처리 -->
 <div class="pagination">
@@ -250,20 +120,66 @@
 
 
 </body>
-<!-- 페이징 처리 -->
+
 <script>
+    function performSearch() {
+        var searchKeyword = document.getElementById('search-input').value;
+        var pageSize = 10;
+
+        // 체크된 브랜드 체크박스 값을 가져오기
+        var selectedBrands = [];
+        var brandCheckboxes = document.querySelectorAll('input[name="dogfoodbrand"]:checked');
+        brandCheckboxes.forEach(function (checkbox) {
+            selectedBrands.push(checkbox.value);
+        });
+
+        $.ajax({
+            url: "/dog/dogSearch",
+            type: "GET",
+            data: {
+                page: 1,
+                pageSize: pageSize,
+                searchKeyword: searchKeyword,
+                selectedBrands: selectedBrands
+            },
+            success: function (data) {
+                // 페이지 이동만 처리
+                $('#resultContainer').html(data);
+            },
+            error: function () {
+                alert('페이지 이동 중 오류가 발생했습니다.');
+            }
+        });
+    }
+
     function goToPage(pageNumber) {
         // 페이지 범위 확인
         if (pageNumber >= 1 && pageNumber <= ${totalPage}) {
-            window.location.href = "/dog/dogSearch?page=" + pageNumber + "&pageSize=10";
-        }
-        if(pageNumber < 0){
-            window.location.href = "/dog/dogSearch?page=1&pageSize=10";
-        }
-        if(pageNumber > ${totalPage}) {
-            window.location.href = "/dog/dogSearch?page=" + ${totalPage} + "&pageSize=10";
+            var pageSize = 10;
+
+            // 검색어와 체크된 브랜드 정보 전송
+            $.ajax({
+                url: "/dog/dogSearch",
+                type: "GET",
+                data: {
+                    page: pageNumber,
+                    pageSize: pageSize,
+                    searchKeyword: document.getElementById('search-input').value,
+                    selectedBrands: []  // 체크된 브랜드 정보 전송
+                },
+                success: function (data) {
+                    // 페이지 이동만 처리
+                    $('#resultContainer').html(data);
+                },
+                error: function () {
+                    alert('페이지 이동 중 오류가 발생했습니다.');
+                }
+            });
         }
     }
 </script>
+
+
+
 
 </html>
