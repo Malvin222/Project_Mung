@@ -44,5 +44,10 @@ public class DogFoodServiceImpl implements DogFoodService {
 
     }
 
+    @Override
+    public List<DogFood> selectDogFoodbyNut() {
+        return dogFoodMapper.selectDogFoodbyNut();
+    }
+
 
 }

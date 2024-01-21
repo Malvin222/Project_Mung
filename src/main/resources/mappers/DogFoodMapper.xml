@@ -35,6 +35,9 @@
         SELECT DISTINCT dogfoodbrand FROM dogfood order by dogfoodbrand
     </select>
 
+    <select id="selectDogFoodbyNut" resultType="string">
+        SELECT DISTINCT dogfoodnut FROM dogfood
+    </select>
 
 
 </mapper>

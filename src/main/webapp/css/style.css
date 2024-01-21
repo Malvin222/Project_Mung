@@ -53,12 +53,15 @@ body {
     margin: 20px 20px 20px 20px;
     border: 1px solid #ccc; /* 외곽선 추가 */
     border-radius: 10px; /* 동그라미 모양을 위해 조절 */
-    padding: 10px 0px 30px 20px;
+    padding: 0px 20px 20px 20px;
     background-color: white;
+    text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
+    justify-content: center
 }
 
 .checkbox-group {
-    margin-right: 30px; /* 브랜드와 나이 체크박스 그룹 간의 간격 조절 */
+    padding: 20px;
+
 }
 
 .checkbox-label {
@@ -83,16 +86,28 @@ p {
 }
 
 .result-container {
+    display: flex;
+    flex-direction: column;
     margin: 20px 20px 20px 20px;
-    background-color: #f9f9f9;
+    background-color: white;
+    text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
+    padding: 20px;
+
+
 }
 
 .result-container th {
     width: 150px;
     font-size: 17px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd; /* 헤더 아래에 선 추가 */
+
 }
 .result-container td {
     text-align: center;
+    font-size: 14px;
+    padding: 10px;
+
 }
 
 .result-item {

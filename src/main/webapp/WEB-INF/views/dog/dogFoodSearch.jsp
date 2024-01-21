@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!DOCTYPE html>
 <html>
@@ -20,15 +21,25 @@
     <!-- 체크 창 -->
     <div class="checkbox-group">
         <p>브랜드</p>
-        <c:forEach var="brand" items="${dogfoodBrands}" varStatus="status">
-            <c:set var="isChecked" value="${selectedBrands != null and selectedBrands.contains(brand)}" />
-            <input type="checkbox" id="brandCheckbox${status.index}" name="selectedBrands" value="${brand}" ${isChecked ? 'checked' : ''}>
-            <label for="brandCheckbox${status.index}" class="checkbox-label">${brand}</label>
+
+        <c:forEach var="brandGroup" items="${dogfoodBrands}" varStatus="status">
+            <c:if test="${status.index % 8 == 0}">
+                <div class="brand-group">
+            </c:if>
+
+            <c:set var="isChecked" value="${selectedBrands != null and selectedBrands.contains(brandGroup)}" />
+            <input type="checkbox" id="brandCheckbox${status.index}" name="selectedBrands" value="${brandGroup}" ${isChecked ? 'checked' : ''}>
+            <label for="brandCheckbox${status.index}" class="checkbox-label">${brandGroup}</label>
+
+            <c:if test="${(status.index + 1) % 8 == 0 or status.last}">
+                </div>
+            </c:if>
         </c:forEach>
     </div>
 
+
     <div class="checkbox-group">
-        <p>나이</p>
+        <p>연령</p>
         <% String[] ages = {"전연령", "퍼피", "어덜트", "시니어"}; %>
         <% for (int i = 0; i < ages.length; i++) { %>
         <% String age = ages[i]; %>
@@ -40,14 +51,49 @@
 
     <div class="checkbox-group">
         <p>특징</p>
-        <% String[] features = {"장건강", "치아건강", "관절건강", "하이포알러제닉"}; %>
+        <% String[] features = {"장건강", "치아건강", "관절건강", "저알러지", "소화개선", "피부건강", "피모건강", "체중관리", "근육발달", "면역증진"}; %>
         <% for (int i = 0; i < features.length; i++) { %>
         <% String feature = features[i]; %>
         <c:set var="isChecked" value="${selectedFeatures != null and selectedFeatures.contains(feature)}" />
         <input type="checkbox" id="featureCheckbox<%= i %>" name="selectedFeatures" value="<%= feature %>" ${isChecked ? 'checked' : ''}>
         <label for="featureCheckbox<%= i %>" class="checkbox-label"><%= feature %></label>
+        <% if ((i + 1) % 5 == 0 || i == features.length - 1) { %>
+        <br>
+        <% } %>
         <% } %>
     </div>
+
+    <div class="checkbox-group">
+        <p>주성분</p>
+        <% String[] nutrients = {"닭고기", "소고기", "양고기", "칠면조", "연어", "오리", "고구마", "밀웜", "쌀"}; %>
+        <% for (int i = 0; i < nutrients.length; i++) { %>
+        <% String nutrient = nutrients[i]; %>
+        <c:set var="isChecked" value="${selectedNutrients != null and selectedNutrients.contains(nutrient)}" />
+        <input type="checkbox" id="nutrientCheckbox<%= i %>" name="selectedNutrients" value="<%= nutrient %>" ${isChecked ? 'checked' : ''}>
+        <label for="nutrientCheckbox<%= i %>" class="checkbox-label"><%= nutrient %></label>
+        <% if ((i + 1) % 5 == 0 || i == nutrients.length - 1) { %>
+        <br>
+        <% } %>
+        <% } %>
+    </div>
+
+    <div class="checkbox-group">
+        <p>가격</p>
+        <% String[] prices = {"~1만원", "1만원대", "2만원대", "3만원대", "4만원대", "5만원~"}; %>
+        <% for (int i = 0; i < prices.length; i++) { %>
+        <% String price = prices[i]; %>
+        <c:set var="isChecked" value="${selectedPrices != null and selectedPrices.contains(price)}" />
+        <input type="checkbox" id="priceCheckbox<%= i %>" name="selectedPrices" value="<%= price %>" ${isChecked ? 'checked' : ''}>
+        <label for="priceCheckbox<%= i %>" class="checkbox-label"><%= price %></label>
+        <% if ((i + 1) % 5 == 0 || i == prices.length - 1) { %>
+        <br>
+        <% } %>
+        <% } %>
+    </div>
+
+
+
+
 </div>
 
 <!-- 검색 폼 -->
@@ -65,13 +111,13 @@
     <table class="result-table">
         <thead>
         <tr>
-            <th style="width:500px" !important>사료명</th>
+            <th style="width:30%" !important>사료명</th>
             <th>브랜드</th>
-            <th>가격</th>
-            <th>나이</th>
-            <th>특징</th>
+            <th>연령</th>
+            <th style="width:20%" !important>특징</th>
             <th>주성분</th>
             <th>용량</th>
+            <th>가격</th>
             <!-- 다른 필드에 대한 헤더 추가 -->
         </tr>
         </thead>
@@ -80,11 +126,11 @@
             <tr class="result-item">
                 <td>${dogFood.dogfoodname}</td>
                 <td>${dogFood.dogfoodbrand}</td>
-                <td>${dogFood.dogfoodprice}</td>
                 <td>${dogFood.dogage}</td>
                 <td>${dogFood.dogfoodfeat}</td>
                 <td>${dogFood.dogfoodnut}</td>
                 <td>${dogFood.dogfoodwei}</td>
+                <td>${dogFood.dogfoodprice}</td>
                 <!-- 추가로 필요한 정보들을 포함할 수 있습니다. -->
             </tr>
         </c:forEach>
@@ -140,7 +186,7 @@
             updateHiddenInput($('input[name="selectedBrands"]:checked'), 'selectedBrands');
         });
 
-        // 나이대 체크박스에 대한 이벤트 핸들러
+        // 연령 체크박스에 대한 이벤트 핸들러
         $('input[name="selectedAges"]').change(function() {
             updateHiddenInput($('input[name="selectedAges"]:checked'), 'selectedAges');
         });
@@ -149,6 +195,17 @@
         $('input[name="selectedFeatures"]').change(function() {
             updateHiddenInput($('input[name="selectedFeatures"]:checked'), 'selectedFeatures');
         });
+
+        // 주성분 체크박스에 대한 이벤트 핸들러
+        $('input[name="selectedNutrients"]').change(function() {
+            updateHiddenInput($('input[name="selectedNutrients"]:checked'), 'selectedNutrients');
+        });
+
+        // 가격 체크박스에 대한 이벤트 핸들러
+        $('input[name="selectedPrices"]').change(function() {
+            updateHiddenInput($('input[name="selectedPrices"]:checked'), 'selectedPrices');
+        });
+
     });
 </script>
 
@@ -168,7 +225,9 @@
                     searchKeyword: document.getElementById('search-input').value,
                     selectedBrands: $('input[name="selectedBrands"]:checked').map(function () { return this.value; }).get(),
                     selectedAges: $('input[name="selectedAges"]:checked').map(function () { return this.value; }).get(),
-                    selectedFeatures: $('input[name="selectedFeatures"]:checked').map(function () { return this.value; }).get()
+                    selectedFeatures: $('input[name="selectedFeatures"]:checked').map(function () { return this.value; }).get(),
+                    selectedNutrients: $('input[name="selectedNutrients"]:checked').map(function () { return this.value; }).get(),
+                    selectedPrices: $('input[name="selectedPrices"]:checked').map(function () { return this.value; }).get()
                 },
                 success: function (data) {
                     // 페이지 이동만 처리

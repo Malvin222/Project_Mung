@@ -16,4 +16,6 @@ public interface DogFoodService {
 
     List<String> getAllDogFoodBrands();
 
+    List<DogFood> selectDogFoodbyNut();
+
 }

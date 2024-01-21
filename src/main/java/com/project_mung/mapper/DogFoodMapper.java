@@ -15,4 +15,6 @@ public interface DogFoodMapper {
     List<DogFood> selectDogFoodByKeyword(String searchKeyword);
 
     List<String> getAllDogFoodBrands();
+
+    List<DogFood> selectDogFoodbyNut();
 }
