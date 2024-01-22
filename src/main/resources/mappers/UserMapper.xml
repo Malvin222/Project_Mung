@@ -5,7 +5,7 @@
 
     <insert id="insertUser">
         INSERT INTO user (userid
-                          , userpass
+                          ,userpass
                           ,username
                           ,userphone
                           ,userpostcode
@@ -13,13 +13,29 @@
                           ,userdetailaddress
                           ,useremail)
                 VALUES (#{userid}
-                       , #{userpass}
+                       ,#{userpass}
                        ,#{username}
                        ,#{userphone}
                        ,#{userpostcode}
                        ,#{useraddress}
                        ,#{userdetailaddress}
                        ,#{useremail})
+    </insert>
+
+    <select id="getLoginInfo" resultType="com.project_mung.domain.User">
+        SELECT * FROM user
+        WHERE userid = #{userid} AND userpass = #{userpass}
+    </select>
+
+    <select id="findByUserEmail" resultType="com.project_mung.domain.User">
+        SELECT *
+        FROM user
+        WHERE useremail = #{useremail}
+    </select>
+
+    <insert id="insertUserRole" parameterType="com.project_mung.domain.UserRole">
+        INSERT INTO userrole (userid, role)
+        VALUES (#{userid}, #{role});
     </insert>
 
 </mapper>

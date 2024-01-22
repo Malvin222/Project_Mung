@@ -71,7 +71,7 @@
 </div>
 
 <!-- 로그인 폼 -->
-<form>
+<form method="post" action="/user/login">
     <label for="userid">아이디</label>
     <input type="text" id="userid" name="userid" required>
 
@@ -82,8 +82,12 @@
         <button type="submit">로그인</button>
     </div>
 
-
+    <div>
+        <a href="/oauth2/authorization/kakao">카카오로그인</a>
+    </div>
 </form>
+
+
 
 <!-- Footer -->
 <footer>
