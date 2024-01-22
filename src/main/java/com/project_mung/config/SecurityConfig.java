@@ -24,15 +24,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
-
         http.oauth2Login(oauth2 -> oauth2
                 .loginPage("/login/oauth2"));
 
+        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
+
         return http.build();
     }
-
-
 
 
 }

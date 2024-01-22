@@ -24,7 +24,7 @@
 
     <select id="getLoginInfo" resultType="com.project_mung.domain.User">
         SELECT * FROM user
-        WHERE userid = #{userid} AND userpass = #{userpass}
+        WHERE userid = #{userid}
     </select>
 
     <select id="findByUserEmail" resultType="com.project_mung.domain.User">

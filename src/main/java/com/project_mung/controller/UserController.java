@@ -50,10 +50,9 @@ public class UserController {
                             @RequestParam("userpass") String userpass,
                             Model model,
                             HttpSession session) {
-
         User user = userService.getLoginInfo(userid, userpass);
 
-        if (user != null) {
+        if (passwordEncoder.matches(userpass,user.getUserpass())) {
             session.setAttribute("user", user);
             return "redirect:/dog/dogFoodSearch";
         } else {
