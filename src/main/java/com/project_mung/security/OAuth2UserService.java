@@ -3,6 +3,8 @@ package com.project_mung.security;
 import com.project_mung.domain.User;
 import com.project_mung.domain.UserRole;
 import com.project_mung.mapper.UserMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.PageContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +29,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final HttpServletRequest request; // HttpServletRequest로 변경
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -92,6 +95,8 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
             };
         } else {
             // 사용자가 이미 존재하면 해당 사용자 반환
+            // 사용자 정보를 세션에 저장
+            request.getSession().setAttribute("user", user);
             return new OAuth2User() {
                 // OAuth2User 인터페이스의 메소드를 구현
                 @Override
@@ -108,6 +113,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
                 @Override
                 public String getName() {
+
                     return user.getUserid();
                 }
             };

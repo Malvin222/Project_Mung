@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="java.util.*" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <html>
 <head>
   <title>회원가입</title>
@@ -69,8 +74,19 @@
   <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
 
+<c:if test="${not empty message}">
+  <div class="success-message">
+      ${message}
+  </div>
+</c:if>
+
+<c:if test="${not empty error}">
+  <div class="error-message">
+      ${error}
+  </div>
+</c:if>
 <!-- 회원가입 폼 -->
-<form action="/user/join" method="post">
+<form action="/user/join" method="post" id="frm">
   <label for="userid">회원아이디</label>
   <input type="text" id="userid" name="userid" required><br>
 
@@ -91,12 +107,18 @@
   <input type="text" id="sample6_extraAddress" name="useremail" placeholder="참고항목">
 
   <div style="text-align:center">
-    <button type="submit">회원가입</button>
+    <button type="submit"  onclick="btn_submit()" id="btn_submit" name="btn_submit">회원가입</button>
   </div>
 
+
+  <c:if test="${not empty message}">
+    <input type="hidden" name="message" value="${message}">
+  </c:if>
+
+  <c:if test="${not empty error}">
+    <input type="hidden" name="error" value="${error}">
+  </c:if>
 </form>
-
-
 
 <!-- Footer -->
 <footer>
@@ -157,6 +179,5 @@
   }
 
 </script>
-
 
 </html>

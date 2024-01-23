@@ -3,8 +3,6 @@ package com.project_mung.controller;
 import com.project_mung.domain.DogFood;
 import com.project_mung.service.DogFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +75,7 @@ public class DogController {
         if (selectedPrices != null && !selectedPrices.isEmpty()) {
             dogFoodList = dogFoodList.stream()
                     .filter(dogFood -> {
-                        String[] prices = dogFood.getDogfoodprice().split(",\\s*");
+                        int prices = dogFood.getDogfoodprice();
                         // DogFood 객체의 가격 정보와 선택된 가격대를 비교하여 필터링
                         return Arrays.asList(prices).stream()
                                 .anyMatch(price -> selectedPrices.contains(getPriceRange(price)));
@@ -111,8 +109,8 @@ public class DogController {
 
 
     // DogFood 객체의 가격을 가격대로 변환하는 메서드
-    private String getPriceRange(String price) {
-        int priceValue = Integer.parseInt(price);
+    private String getPriceRange(Integer price) {
+        int priceValue = Integer.parseInt(String.valueOf(price));
         if (priceValue < 10000) {
             return "1만원 미만";
         } else if (priceValue < 20000) {

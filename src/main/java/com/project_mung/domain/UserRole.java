@@ -1,12 +1,21 @@
 package com.project_mung.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 
 
 public enum UserRole {
-    USER, ADMIN;
+    USER("ROLE_USER"),
+    ADMIN("ROLE_ADMIN");
 
+    private final String roleName;
 
+    UserRole(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
 }
+

@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>웹페이지 제목</title>
+    <title>강아지 사료 검색</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
@@ -16,6 +16,11 @@
 <div class="main-logo" align="center">
     <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
+
+<div class="cart-container" align="right">
+    <a href="/dog/cart"><img src="/imgs/cart-logo.png" width="50"></a>
+</div>
+
 <!-- 체크 그룹 컨테이너 -->
 <div class="checkbox-group-container">
     <!-- 체크 창 -->
@@ -118,6 +123,7 @@
             <th>주성분</th>
             <th>용량</th>
             <th>가격</th>
+            <th>장바구니</th>
             <!-- 다른 필드에 대한 헤더 추가 -->
         </tr>
         </thead>
@@ -131,6 +137,7 @@
                 <td>${dogFood.dogfoodnut}</td>
                 <td>${dogFood.dogfoodwei}</td>
                 <td>${dogFood.dogfoodprice}</td>
+                <td><button type="button">담기</button></td>
                 <!-- 추가로 필요한 정보들을 포함할 수 있습니다. -->
             </tr>
         </c:forEach>

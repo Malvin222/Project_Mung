@@ -1,7 +1,11 @@
 package com.project_mung.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,9 +26,15 @@ public class User {
 
     // UserRole 추가
     @Builder.Default
-    private Set<UserRole> roles = new HashSet<>();
+    private Set<UserRole> roles = EnumSet.noneOf(UserRole.class);
 
     public void addRole(UserRole role) {
         roles.add(role);
     }
+
+    public Set<UserRole> getRoles() {
+        return Collections.unmodifiableSet(roles);
+    }
+
+
 }
