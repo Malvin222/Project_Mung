@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.*" %>
+<c:set var="userid" value="${sessionScope.user.userid}"></c:set>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!DOCTYPE html>
 <html>
@@ -137,7 +138,7 @@
                 <td>${dogFood.dogfoodnut}</td>
                 <td>${dogFood.dogfoodwei}</td>
                 <td>${dogFood.dogfoodprice}</td>
-                <td><button type="button">담기</button></td>
+                <td><button type="button" onclick="addCart(${dogFood.dogfoodid}, ${dogFood.dogfoodprice}, '${dogFood.dogfoodname}')">담기</button></td>
                 <!-- 추가로 필요한 정보들을 포함할 수 있습니다. -->
             </tr>
         </c:forEach>
@@ -160,7 +161,14 @@
     <!-- 다음 페이지로 이동하는 화살표 -->
     <a href="javascript:void(0);" onclick="goToPage(${currentPage + 5})" class="arrow ${currentPage < totalPage ? '' : 'disabled'}">❯</a>
 </div>
-
+<div>
+    <c:if test="${not empty sessionScope.user}">
+        <h2>로그인된 사용자 정보</h2>
+        <p>사용자 아이디: ${sessionScope.user.userid}</p>
+        <p>사용자 이름: ${sessionScope.user.username}</p>
+        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
+    </c:if>
+</div>
 <!-- Footer -->
 <footer>
     &copy; 2024 Your Website Name. All rights reserved.
@@ -258,9 +266,41 @@
     }
 </script>
 
+<script>
+    function addCart(dogfoodid, dogfoodprice, dogfoodname) {
+        var userid = "${sessionScope.user.userid}";
 
+        // 만약 사용자가 로그인한 경우에만 처리
+        if (userid) {
+            // dogFood 객체의 속성 정의
 
-
+            $.ajax({
+                url: "/cart/addToCart",
+                type: "POST",
+                data: {
+                    dogfoodid: dogfoodid,
+                    dogfoodprice: dogfoodprice,
+                    dogfoodname: dogfoodname,
+                    userid: userid
+                },
+                success: function (data) {
+                    if (data === "success") {
+                        alert("장바구니에 추가되었습니다.");
+                    } else {
+                        alert("장바구니에 추가 중 오류가 발생했습니다.");
+                    }
+                },
+                error: function () {
+                    alert("서버 오류가 발생했습니다.");
+                }
+            });
+        } else {
+            // 로그인하지 않은 경우에 대한 처리
+            alert("로그인 후에 이용 가능합니다.");
+            window.location.href = "/user/login"; // 이 부분을 수정
+        }
+    }
+</script>
 
 
 </html>
