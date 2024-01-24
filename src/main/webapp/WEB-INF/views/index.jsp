@@ -21,7 +21,6 @@
 
         }
 
-
         /* Footer 스타일 */
         footer {
             text-align: center;
@@ -37,7 +36,14 @@
 
 <!-- 메인 로고 -->
 <div class="main-logo" align="center">
-    <a href="/dog/dogFoodSearch"><img src="/imgs/m2.png" width="100"></a><br>
+    <a href="/dog/dogFoodSearch"><img src="/imgs/m2.png" width="150"></a><br>
+</div>
+
+<div class="login-container" align="center">
+    <c:if test="${not empty sessionScope.user}">
+        ${sessionScope.user.userid}
+        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
+    </c:if>
 </div>
 
 <div align="center">
@@ -52,14 +58,7 @@
         </c:otherwise>
     </c:choose>
 </div>
-<div>
-    <c:if test="${not empty sessionScope.user}">
-        <h2>로그인된 사용자 정보</h2>
-        <p>사용자 아이디: ${sessionScope.user.userid}</p>
-        <p>사용자 이름: ${sessionScope.user.username}</p>
-        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
-    </c:if>
-</div>
+
 
 
 <!-- Footer -->

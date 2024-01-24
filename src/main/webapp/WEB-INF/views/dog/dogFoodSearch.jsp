@@ -18,8 +18,17 @@
     <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
 
-<div class="cart-container" align="right">
+
+<!-- 장바구니 로고 -->
+<div class="cart-container-search" align="right">
     <a href="/dog/cart"><img src="/imgs/cart-logo.png" width="50"></a>
+</div>
+
+<div class="login-container" style="text-align:right; margin-right:50px;">
+    <c:if test="${not empty sessionScope.user}">
+        ${sessionScope.user.userid}
+        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
+    </c:if>
 </div>
 
 <!-- 체크 그룹 컨테이너 -->
@@ -161,14 +170,7 @@
     <!-- 다음 페이지로 이동하는 화살표 -->
     <a href="javascript:void(0);" onclick="goToPage(${currentPage + 5})" class="arrow ${currentPage < totalPage ? '' : 'disabled'}">❯</a>
 </div>
-<div>
-    <c:if test="${not empty sessionScope.user}">
-        <h2>로그인된 사용자 정보</h2>
-        <p>사용자 아이디: ${sessionScope.user.userid}</p>
-        <p>사용자 이름: ${sessionScope.user.username}</p>
-        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
-    </c:if>
-</div>
+
 <!-- Footer -->
 <footer>
     &copy; 2024 Your Website Name. All rights reserved.

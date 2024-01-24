@@ -80,6 +80,17 @@ public class CartController {
         return "success";
     }
 
+    // 장바구니에서 전체 상품 삭제
+    @PostMapping("/cart/removeAllFromCart")
+    @ResponseBody
+    public String removeAllFromCart(@RequestParam("userid") String userid) {
+        // 장바구니에서 상품 삭제 로직 수행
+        cartService.removeAllFromCart(userid);
+
+        // 삭제 성공 메시지 반환
+        return "success";
+    }
+
 
     // 주문 처리
     @PostMapping("/placeOrder")
@@ -98,7 +109,7 @@ public class CartController {
     @PostMapping("/cart/updateItemCnt")
     @ResponseBody
     public String updateItemCnt(@RequestParam int cartid,
-                                 @RequestParam int newQuantity) {
+                                @RequestParam int newQuantity) {
         // itemId와 newQuantity를 받아와서 수량 업데이트 로직을 수행
         boolean updateSuccessCnt = cartService.updateItemCnt(cartid,newQuantity);
         boolean updateSuccessPrice = cartService.updatePrice(cartid);
@@ -109,5 +120,21 @@ public class CartController {
             return "수량 업데이트 중 오류가 발생했습니다.";
         }
     }
+
+    // 장바구니 수량 변경
+    @PostMapping("/cart/changeQuantity")
+    @ResponseBody
+    public String changeQuantity(@RequestParam int cartid,
+                                 @RequestParam int amount) {
+        // cartid와 amount를 받아와서 수량 변경 로직을 수행
+        boolean updateSuccess = cartService.changeQuantity(cartid, amount);
+
+        if (updateSuccess) {
+            return "success";
+        } else {
+            return "수량 변경 중 오류가 발생했습니다.";
+        }
+    }
+
 
 }

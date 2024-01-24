@@ -45,8 +45,24 @@
     <update id="updateItemCnt">
         UPDATE cart SET itemcnt = #{newQuantity} WHERE cartid = #{cartid}
     </update>
+
     <!--가격변경-->
     <update id="updatePrice">
         UPDATE cart SET totalprice = itemcnt * dogfoodprice WHERE cartid = #{userid}
     </update>
+
+    <!-- 장바구니 전체 삭제 -->
+    <delete id="removeAllFromCart">
+        DELETE FROM cart WHERE userid = #{userid}
+    </delete>
+
+    <!-- 장바구니에서 특정 상품의 수량 변경 -->
+    <update id="changeQuantity">
+        UPDATE cart
+        SET totalprice = dogfoodprice * (itemcnt + #{amount}),
+            itemcnt = itemcnt + #{amount}
+        WHERE cartid = #{cartid}
+
+    </update>
+
 </mapper>

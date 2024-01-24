@@ -128,7 +128,11 @@ footer {
     bottom: 0;
     width: 100%;
     z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
+    margin-top: 30px;
+    margin-bottom: 20px;
+
 }
+
 /* 페이징 스타일 */
 .pagination {
     display: flex;
@@ -156,13 +160,118 @@ footer {
     background-color: #ddd;
 }
 
-footer {
-    margin-top: 30px;
+
+/* 서치페이지 장바구니 로고*/
+.cart-container-search {
+    margin-right: 50px;
     margin-bottom: 20px;
 }
 
-/* 장바구니 */
-.cart-container {
-    margin-right: 50px;
+button {
+    padding: 10px;
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
+button:hover {
+    background-color: #d0b7ad;
+}
+
+
+/* 장바구니 페이지 스타일링 추가 */
+
+/* 장바구니 페이지 제목 스타일링 */
+.title-container h2 {
+    color: #4b4a4a;
+    font-size: 40px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* 장바구니 테이블 스타일링 */
+.cart-table {
+    width: calc(100% - 40px); /* 전체 너비에서 좌우 여백(20px * 2)을 뺍니다. */
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 20px; /* 동그라미 테두리를 추가합니다. */
+    overflow: hidden; /* 테두리를 벗어난 부분을 숨깁니다. */
+    margin: 20px; /* 상하 여백을 조절합니다. */
+}
+
+.cart-table th, .cart-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.cart-table th {
+    background-color: #e3ccc3;
+    color: #4b4a4a;
+    font-size: 18px;
+}
+
+/* 장바구니 수량 입력 필드 스타일링 */
+.quantity-input {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.total-container {
+    margin-top: 20px; /* 위 여백을 조절합니다. */
+}
+
+/* 장바구니 총 금액 스타일링 */
+.total-container .total-price {
+    font-size: 24px;
+    color: #4b4a4a;
+    margin-bottom: 20px; /* 아래 여백을 조절합니다. */
+    margin-right: 20px;
+    text-align: right;
+}
+
+/* 장바구니 주문 버튼 스타일링 */
+.total-container .order-button {
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 70px;
+    padding: 15px 20px; /* 버튼의 상하 및 좌우 여백 조절 */
+    font-size: 18px; /* 버튼의 글자 크기 조절 */
+}
+
+.cart-container .order-button:hover {
+    background-color: #d0b7ad;
+}
+
+/* 장바구니 삭제 버튼 스타일링 */
+.cart-container .remove-button {
+    padding: 8px 16px;
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart-container .remove-button:hover {
+    background-color: #d0b7ad;
+}
+
+
+.remove-all-container {
+    margin-right: 50px;
+    font-size: 18px; /* 버튼의 글자 크기 조절 */
+}
+
+
+
+
 

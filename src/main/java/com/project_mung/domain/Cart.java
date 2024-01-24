@@ -19,7 +19,7 @@ public class Cart {
     private int    dogfoodid;       // 아이디
     private int    dogfoodprice;    // 사료 가격
     private String dogfoodname;     // 사료명
-    private LocalDateTime orderdate;     // 주문날짜
+    private LocalDateTime orderdate;// 주문날짜
 
     private String userid;          // 유저아이디
 }

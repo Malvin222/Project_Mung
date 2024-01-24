@@ -12,13 +12,13 @@ import java.util.List;
 @Service
 public class CartServiceImpl implements CartService{
 
-   private final CartMapper cartMapper;
+    private final CartMapper cartMapper;
 
-   @Autowired
-   public CartServiceImpl(CartMapper cartMapper){
-       this.cartMapper = cartMapper;
-   }
-   //장바구니 추가
+    @Autowired
+    public CartServiceImpl(CartMapper cartMapper){
+        this.cartMapper = cartMapper;
+    }
+    //장바구니 추가
     @Override
     public void addToCart(Cart cartItem) {
         cartMapper.addToCart(cartItem);
@@ -51,12 +51,12 @@ public class CartServiceImpl implements CartService{
     //장바구니 총 가격
     @Override
     public int totalPrice(List<Cart> cartItems) {
-       int totalPrice = 0;
+        int totalPrice = 0;
 
-       for(Cart cart : cartItems){
-           totalPrice += cart.getTotalprice();
-       }
-       return totalPrice;
+        for(Cart cart : cartItems){
+            totalPrice += cart.getTotalprice();
+        }
+        return totalPrice;
     }
 
     //주문
@@ -74,7 +74,19 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public boolean updatePrice(int cartid) {
-      return cartMapper.updatePrice(cartid);
+        return cartMapper.updatePrice(cartid);
+    }
+
+    @Override
+    public void removeAllFromCart(String userid)  {
+        cartMapper.removeAllFromCart(userid);
+    }
+
+    @Override
+    public boolean changeQuantity(int cartid, int amount) {
+        // amount가 음수이면 수량을 감소시키고, 양수이면 수량을 증가시킵니다.
+        cartMapper.changeQuantity(cartid, amount);
+        return true; // 성공하면 true를 반환
     }
 
 

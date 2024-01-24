@@ -26,12 +26,16 @@ public interface CartService {
 
     // 주문 처리
     void placeOrder(String userid);
-        // 주문 처리 로직 구현
-        // 주문 정보를 데이터베이스에 저장하고 장바구니 비우기 등의 작업 수행
+    // 주문 처리 로직 구현
+    // 주문 정보를 데이터베이스에 저장하고 장바구니 비우기 등의 작업 수행
 
     //아이템 수량 변경
     boolean updateItemCnt(int cartid, int newQuantity);
 
     //아이템 가격변경
     boolean updatePrice(int cartid);
+
+    void removeAllFromCart(String userid);
+
+    boolean changeQuantity(int cartid, int amount);
 }

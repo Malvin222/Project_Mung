@@ -29,4 +29,9 @@ public interface CartMapper {
 
     //아이템가격변경
     boolean updatePrice(int cartid);
+
+    void removeAllFromCart(String userid);
+
+    // 장바구니에서 특정 상품의 수량 변경
+    boolean changeQuantity(int cartid, int amount);
 }
