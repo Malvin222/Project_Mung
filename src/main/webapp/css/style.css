@@ -97,8 +97,6 @@ p {
     background-color: white;
     text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
     padding: 20px;
-
-
 }
 
 .result-container th {
@@ -106,13 +104,12 @@ p {
     font-size: 17px;
     padding-bottom: 10px;
     border-bottom: 2px solid #ddd; /* 헤더 아래에 선 추가 */
-
 }
+
 .result-container td {
     text-align: center;
     font-size: 14px;
     padding: 10px;
-
 }
 
 .result-item {
@@ -129,9 +126,9 @@ p {
 /* Footer 스타일 */
 footer {
     text-align: center;
-    padding: 10px;
     bottom: 0;
-    width: 100%;
+    width: 90%;
+    margin: auto;
     z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
     margin-top: 30px;
     margin-bottom: 20px;
@@ -283,6 +280,93 @@ button:hover {
 
 .remove-all-button:hover {
     background-color: transparent; /* 커서를 올렸을 때 배경 색 제거 */
+}
+
+
+/* 주문 페이지 */
+.items-container, .addr-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto; /* 가운데 정렬을 위해 사용 */
+    background-color: white;
+    text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
+    padding: 20px;
+}
+
+.items-container th {
+    width: 150px;
+    font-size: 17px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid #ddd; /* 헤더 아래에 선 추가 */
+}
+
+.items-container td {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    margin: 0; /* td의 여백을 제거 */
+}
+
+.h2-container h2 {
+    width: 70%;
+    margin: auto; /* 가운데 정렬을 위해 사용 */
+    margin-bottom: 30px;
+    margin-top: 50px;
+    font-size: 28px;
+}
+
+.addr-container button {
+    margin-left: auto;
+}
+
+.addr-container select, .addr-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.total-price-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto; /* 가운데 정렬을 위해 사용 */
+    background-color: white;
+    text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
+    padding: 20px;
+}
+
+.total-price-container td {
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+}
+
+.method-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto; /* 가운데 정렬을 위해 사용 */
+    background-color: white;
+    text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.pay-container button {
+    padding: 20px 40px; /* 버튼의 상하 및 좌우 여백 조절 */
+    font-size: 24px; /* 버튼의 글자 크기 조절 */
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0 30px 0;
+}
+
+.pay-container button:hover {
+    background-color: #d0b7ad;
 }
 
 

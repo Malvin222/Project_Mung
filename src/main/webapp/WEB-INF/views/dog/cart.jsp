@@ -78,7 +78,7 @@
 <div align="right">
     <table class="total-container" >
         <tr><td><h2 class="total-price">주문금액 <strong style="font-size: 28px;">${totalPrice}</strong>원</h2></td></tr>
-        <tr><td><button class="order-button" onclick="placeOrder()"><a href="/cart/order">주문하기</a></button></td></tr>
+        <tr><td><button class="order-button" onclick="placeOrder()"><a href="/dog/order">주문하기</a></button></td></tr>
     </table>
 </div>
 <!-- Footer -->

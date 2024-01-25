@@ -158,4 +158,24 @@ public class DogController {
         model.addAttribute("totalPrice",totalPrice);
         return "dog/cart";
     }
+
+
+    // 주문 처리
+    @GetMapping("/dog/order")
+    public String placeOrder(HttpSession session, Model model) {
+        // 세션에서 사용자 아이디 가져오기
+        User user = (User) session.getAttribute("user");
+
+        String userid = user.getUserid();
+
+        List<Cart> cartItems =cartService.getCartItems(userid);
+
+        int totalPrice = cartService.totalPrice(cartItems);
+
+        model.addAttribute("cartItems",cartItems);
+        model.addAttribute("totalPrice",totalPrice);
+
+
+        return "dog/order";
+    }
 }

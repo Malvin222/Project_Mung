@@ -73,19 +73,6 @@ public class CartController {
     }
 
 
-    // 주문 처리
-    @PostMapping("/placeOrder")
-    public String placeOrder(HttpSession session) {
-        // 세션에서 사용자 아이디 가져오기
-        String userid = (String) session.getAttribute("userid");
-
-        // 주문 처리 로직 수행
-        cartService.placeOrder(userid);
-
-        // 주문 완료 페이지로 이동
-        return "/order/success";
-    }
-
     //장바구니 수량 변경
     @PostMapping("/cart/updateItemCnt")
     @ResponseBody
@@ -117,7 +104,6 @@ public class CartController {
         }
     }
 
-
     // 선택 삭제
     @PostMapping("/cart/removeSelected")
     @ResponseBody
@@ -130,5 +116,7 @@ public class CartController {
             return "error";
         }
     }
+
+
 
 }
