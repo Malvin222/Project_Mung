@@ -12,6 +12,11 @@ body {
 
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .search-container {
     display: flex;
     justify-content: center;
@@ -151,6 +156,7 @@ footer {
     margin: 0 4px;
 }
 
+
 .pagination a.active {
     background-color: #e3ccc3;
     color: white;
@@ -188,7 +194,7 @@ button:hover {
     color: #4b4a4a;
     font-size: 40px;
     margin-left: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 /* 장바구니 테이블 스타일링 */
@@ -265,10 +271,18 @@ button:hover {
     background-color: #d0b7ad;
 }
 
-
-.remove-all-container {
-    margin-right: 50px;
+/* 선택 삭제 버튼 */
+.remove-all-button {
+    margin-left: 20px;
+    background-color: transparent;
+    border: none;
+    color: #5C4C4C;
+    cursor: pointer;
     font-size: 18px; /* 버튼의 글자 크기 조절 */
+}
+
+.remove-all-button:hover {
+    background-color: transparent; /* 커서를 올렸을 때 배경 색 제거 */
 }
 
 

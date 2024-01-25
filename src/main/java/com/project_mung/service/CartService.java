@@ -38,4 +38,6 @@ public interface CartService {
     void removeAllFromCart(String userid);
 
     boolean changeQuantity(int cartid, int amount);
+
+    void removeSelectedItems(List<Long> selectedItems);
 }

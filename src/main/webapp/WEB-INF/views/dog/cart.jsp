@@ -26,9 +26,17 @@
 </div>
 
 <!-- 전체 삭제 버튼 -->
-<div class="remove-all-container" align="right">
-    <button class="remove-all-button" onclick="confirmRemoveAll()">전체 삭제</button>
-</div>
+<%--<div class="remove-all-container" align="right">--%>
+<%--    <button class="remove-all-button" onclick="confirmRemoveAll()">전체 삭제</button>--%>
+<%--</div>--%>
+
+<!-- 전체 선택 및 선택 삭제 버튼 추가 -->
+<div class="remove-all-container" style="display:flex; align-items:center;">
+    <button class="remove-all-button" onclick="toggleSelectAll()">전체 선택</button>
+    <button class="remove-all-button" onclick="confirmRemoveSelected()">선택 삭제</button>
+    <div style="margin-left:auto; margin-right:20px;">
+        <button class="remove-all-button" onclick="confirmRemoveAll()">전체 삭제</button>
+    </div></div>
 
 <!-- 장바구니 목록 표시 -->
 <div class="cart-container">
@@ -36,6 +44,7 @@
     <table class="cart-table">
         <thead>
         <tr>
+            <th>선택</th>
             <th>상품명</th>
             <th>가격</th>
             <th>수량</th>
@@ -47,6 +56,7 @@
         <!-- 장바구니에 담긴 각 상품에 대한 정보를 반복해서 표시 -->
         <c:forEach var="item" items="${cartItems}">
             <tr>
+                <td><input type="checkbox" id="selectedItem_${item.cartid}" name="selectedItems" value="${item.cartid}"></td>
                 <td>${item.dogfoodname}</td>
                 <td>${item.dogfoodprice}</td>
                 <td>
@@ -57,7 +67,7 @@
                     <button class="quantity-btn" onclick="changeQuantity(${item.cartid}, 1)">+</button>
                 </td>
                 <td>${item.totalprice}</td>
-                <td><button class="remove-button" onclick="removeFromCart(${item.cartid})">삭제</button></td>
+                <td><button class="remove-button" onclick="removeFromCart(${item.cartid})">X</button></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -68,7 +78,7 @@
 <div align="right">
     <table class="total-container" >
         <tr><td><h2 class="total-price">주문금액 <strong style="font-size: 28px;">${totalPrice}</strong>원</h2></td></tr>
-        <tr><td><button class="order-button" onclick="placeOrder()">주문하기</button></td></tr>
+        <tr><td><button class="order-button" onclick="placeOrder()"><a href="/cart/order">주문하기</a></button></td></tr>
     </table>
 </div>
 <!-- Footer -->
@@ -184,7 +194,50 @@
         });
     }
 
+</script>
+<script>
+    // 전체 선택 함수
+    function toggleSelectAll() {
+        // 모든 name이 selectedItems인 체크박스의 체크 상태를 반전
+        $('input[name="selectedItems"]').prop('checked', function (index, value) {
+            return !value;
+        });
+    }
 
+    // 선택 삭제 함수 호출 전 확인 알림창 띄우기
+    function confirmRemoveSelected() {
+        // 체크된 항목이 하나 이상인지 확인
+        if ($('input[name="selectedItems"]:checked').length > 0) {
+            // 확인 창을 띄우고 확인을 누르면 removeSelected 함수 호출
+            if (confirm("선택한 상품을 삭제하시겠습니까?")) {
+                removeSelected();
+            }
+        } else {
+            alert("선택한 상품이 없습니다.");
+        }
+    }
+
+    // 선택한 상품 삭제 함수
+    function removeSelected() {
+        var selectedItems = [];
+        $('input[name="selectedItems"]:checked').each(function () {
+            selectedItems.push($(this).val());
+        });
+
+        $.ajax({
+            url: "/cart/removeSelected",
+            type: "POST",
+            contentType: "application/json",  // 추가
+            data: JSON.stringify(selectedItems),  // 변경
+            success: function (data) {
+                alert("선택한 상품이 삭제되었습니다.");
+                location.reload();
+            },
+            error: function () {
+                alert("선택한 상품 삭제 중 오류가 발생했습니다.");
+            }
+        });
+    }
 
 </script>
 </html>

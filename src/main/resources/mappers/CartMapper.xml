@@ -65,4 +65,13 @@
 
     </update>
 
+    <!-- 선택 삭제 -->
+    <delete  id="removeSelectedItems" parameterType="java.util.List">
+        DELETE FROM cart
+        WHERE cartid IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete >
+
 </mapper>

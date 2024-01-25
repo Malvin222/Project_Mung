@@ -1,7 +1,11 @@
 package com.project_mung.controller;
 
+import com.project_mung.domain.Cart;
 import com.project_mung.domain.DogFood;
+import com.project_mung.domain.User;
+import com.project_mung.service.CartService;
 import com.project_mung.service.DogFoodService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +20,12 @@ import java.util.stream.Collectors;
 public class DogController {
 
     private final DogFoodService dogFoodService;
+    private final CartService cartService;
 
     @Autowired
-    public DogController(DogFoodService dogFoodService) {
+    public DogController(DogFoodService dogFoodService, CartService cartService) {
         this.dogFoodService = dogFoodService;
+        this.cartService = cartService;
     }
 
     @GetMapping("/dog/dogFoodSearch")
@@ -124,5 +130,32 @@ public class DogController {
         } else {
             return "5만원 이상";
         }
+    }
+
+
+    //장바구니 목록조회
+    @GetMapping("/dog/cart")
+    public String dogCartPage(Model model, HttpSession session){
+
+        //세션에서 사용자 아이디 가져오기
+        User user = (User) session.getAttribute("user");
+
+        // 세션에 사용자 정보가 없을 경우 로그인 페이지로 리다이렉트
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+
+        String userid = user.getUserid();
+
+        //세션에서 사용자 아이디를 통해 장바구니에 담김 상품 목록 조회
+        List<Cart> cartItems =cartService.getCartItems(userid);
+
+        //총 금액 계산
+        int totalPrice = cartService.totalPrice(cartItems);
+
+        //모델에 데이터 추가
+        model.addAttribute("cartItems",cartItems);
+        model.addAttribute("totalPrice",totalPrice);
+        return "dog/cart";
     }
 }

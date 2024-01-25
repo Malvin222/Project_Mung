@@ -23,25 +23,6 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    //장바구니 목록조회
-    @GetMapping("/dog/cart")
-    public String dogCartPage(Model model,HttpSession session){
-
-        //세션에서 사용자 아이디 가져오기
-        User user = (User) session.getAttribute("user");
-        String userid = user.getUserid();
-
-        //세션에서 사용자 아이디를 통해 장바구니에 담김 상품 목록 조회
-        List<Cart> cartItems =cartService.getCartItems(userid);
-
-        //총 금액 계산
-        int totalPrice = cartService.totalPrice(cartItems);
-
-        //모델에 데이터 추가
-        model.addAttribute("cartItems",cartItems);
-        model.addAttribute("totalPrice",totalPrice);
-        return "dog/cart";
-    }
 
     //장바구니 추가
     @PostMapping("/cart/addToCart")
@@ -136,5 +117,18 @@ public class CartController {
         }
     }
 
+
+    // 선택 삭제
+    @PostMapping("/cart/removeSelected")
+    @ResponseBody
+    public String removeSelectedItems(@RequestBody List<Long> selectedItems) {
+        try {
+            cartService.removeSelectedItems(selectedItems);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
 }

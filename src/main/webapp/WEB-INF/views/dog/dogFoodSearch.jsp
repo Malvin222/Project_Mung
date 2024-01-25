@@ -269,6 +269,7 @@
 </script>
 
 <script>
+
     function addCart(dogfoodid, dogfoodprice, dogfoodname) {
         var userid = "${sessionScope.user.userid}";
 

@@ -34,4 +34,6 @@ public interface CartMapper {
 
     // 장바구니에서 특정 상품의 수량 변경
     boolean changeQuantity(int cartid, int amount);
+
+    void removeSelectedItems(List<Long> selectedItems);
 }

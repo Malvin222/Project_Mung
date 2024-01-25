@@ -89,5 +89,11 @@ public class CartServiceImpl implements CartService{
         return true; // 성공하면 true를 반환
     }
 
+    @Override
+    public void removeSelectedItems(List<Long> selectedItems) {
+        cartMapper.removeSelectedItems(selectedItems);
+
+    }
+
 
 }
