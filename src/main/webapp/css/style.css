@@ -239,15 +239,16 @@ button:hover {
 }
 
 /* 장바구니 주문 버튼 스타일링 */
-.total-container .order-button {
+.order-button {
     background-color: #e3ccc3;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 70px;
-    padding: 15px 20px; /* 버튼의 상하 및 좌우 여백 조절 */
-    font-size: 18px; /* 버튼의 글자 크기 조절 */
+    padding: 15px 20px;
+    font-size: 18px;
+    position: fixed;
+    right: 20px;
 }
 
 .cart-container .order-button:hover {

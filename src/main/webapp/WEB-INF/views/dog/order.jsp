@@ -67,7 +67,7 @@
             <th>수량</th>
             <th>총 가격</th>
         </tr>
-        <c:forEach var="item" items="${cartItems}">
+        <c:forEach var="item" items="${selectedItems}">
             <tr>
                 <td>${item.dogfoodname}</td>
                 <td>${item.dogfoodprice}</td>
