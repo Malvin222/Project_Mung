@@ -14,6 +14,5 @@ public interface UserMapper {
 
     void insertUserRole(UserRole userRole);
 
-
-
+    void insertUserDelivery(User user);
 }

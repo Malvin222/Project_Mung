@@ -12,4 +12,28 @@
         </foreach>
     </select>
 
+    <!--배송지 조회-->
+    <select id="getDelivery">
+        SELECT * FROM delivery WHERE userid = #{userid}
+    </select>
+    <!--배송지저장-->
+    <insert id="insertDelivery">
+        INSERT INTO delivery (userid
+                         ,deliveryname
+                         ,customername
+                         ,deliveryaddress
+                         ,deliverypostcode
+                         ,customerphone)
+        VALUES (#{userid}
+               ,#{deliveryname}
+               ,#{customername}
+               ,#{deliveryaddress}
+               ,#{deliverypostcode}
+               ,#{customerphone})
+    </insert>
+    <!--배송지삭제-->
+    <delete id="deleteDelivery">
+        DELETE FROM delivery WHERE deliveryid = #{deliveryid}
+    </delete>
+
 </mapper>

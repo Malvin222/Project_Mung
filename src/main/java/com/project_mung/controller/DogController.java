@@ -1,6 +1,7 @@
     package com.project_mung.controller;
 
     import com.project_mung.domain.Cart;
+    import com.project_mung.domain.Delivery;
     import com.project_mung.domain.DogFood;
     import com.project_mung.domain.User;
     import com.project_mung.service.CartService;
@@ -179,25 +180,23 @@
 
             //주문목록 가져오기
             List<Cart> orderItems = orderService.getOrderItems(cartid);
-
-            Enumeration<String> attributeNames = session.getAttributeNames();
-
-            // 각 속성에 대한 정보 출력
-            while (attributeNames.hasMoreElements()) {
-                String attributeName = attributeNames.nextElement();
-                Object attributeValue = session.getAttribute(attributeName);
-                System.out.println("Attribute Name: " + attributeName + ", Attribute Value: " + attributeValue);
-            }
-
             int totalPrice = cartService.totalPrice(orderItems);
+
+            //배송지 정보 가져오기
+            List<Delivery> deliveryList = orderService.getDelivery(userid);
 
             model.addAttribute("orderItems",orderItems);
             model.addAttribute("totalPrice",totalPrice);
-            log.info("orderItems:::::::::::");
-            log.info(orderItems);
-            log.info("::::::::::::::::selectedItems");
-            log.info(cartid);
+            model.addAttribute("deliveryList",deliveryList);
 
+//            Enumeration<String> attributeNames = session.getAttributeNames();
+//
+//            // 각 속성에 대한 정보 출력
+//            while (attributeNames.hasMoreElements()) {
+//                String attributeName = attributeNames.nextElement();
+//                Object attributeValue = session.getAttribute(attributeName);
+//                System.out.println("Attribute Name: " + attributeName + ", Attribute Value: " + attributeValue);
+//            }
 
             return "dog/order";
         }
@@ -206,6 +205,7 @@
         @PostMapping("/dog/addToOrder")
         @ResponseBody
         public String addToOrder(@RequestBody List<Integer> selectedItems, HttpSession session) {
+
             // 세션에서 선택된 상품들 가져오기
             List<Integer> orderItems = (List<Integer>) session.getAttribute("selectedItems");
 

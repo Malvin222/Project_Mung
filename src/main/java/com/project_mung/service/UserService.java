@@ -13,6 +13,8 @@ public interface UserService {
 
     void insertUserRole(UserRole userRole);
 
+    void insertUserDelivery(User user);
+
 
 
 

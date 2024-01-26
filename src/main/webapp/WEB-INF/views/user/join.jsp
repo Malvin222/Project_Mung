@@ -98,13 +98,14 @@
 
   <label for="userphone">전화번호</label>
   <input type="tel" id="userphone" name="userphone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-1234-5678" required><br>
-
+  <label for="useremail">이메일</label>
+  <input type="email" id="useremail" name="useremail" required>
   <!-- 우편번호 검색 관련 입력 -->
   <input type="text" id="sample6_postcode" name="userpostcode" placeholder="우편번호">
   <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
   <input type="text" id="sample6_address" name="useraddress" placeholder="주소"><br>
   <input type="text" id="sample6_detailAddress" name="userdetailaddress" placeholder="상세주소">
-  <input type="text" id="sample6_extraAddress" name="useremail" placeholder="참고항목">
+  <input type="text" id="sample6_extraAddress" placeholder="참고항목">
 
   <div style="text-align:center">
     <button type="submit"  onclick="btn_submit()" id="btn_submit" name="btn_submit">회원가입</button>

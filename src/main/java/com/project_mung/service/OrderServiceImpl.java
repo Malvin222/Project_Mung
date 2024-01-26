@@ -1,6 +1,7 @@
 package com.project_mung.service;
 
 import com.project_mung.domain.Cart;
+import com.project_mung.domain.Delivery;
 import com.project_mung.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,20 @@ public class OrderServiceImpl implements OrderService{
 
         // 실제 주문 처리 로직을 구현하고 성공 여부를 반환합니다.
         return true; // 간단한 예시로 항상 주문이 성공한다고 가정합니다.
+    }
+
+    @Override
+    public List<Delivery> getDelivery(String userid) {
+        return orderMapper.getDelivery(userid);
+    }
+
+    @Override
+    public boolean insertDelivery(Delivery delivery) {
+        return orderMapper.insertDelivery(delivery);
+    }
+
+    @Override
+    public Boolean deleteDelivery(int deliveryid) {
+        return orderMapper.deleteDelivery(deliveryid);
     }
 }

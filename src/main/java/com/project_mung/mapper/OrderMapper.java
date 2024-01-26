@@ -1,6 +1,7 @@
 package com.project_mung.mapper;
 
 import com.project_mung.domain.Cart;
+import com.project_mung.domain.Delivery;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,4 +13,9 @@ public interface OrderMapper {
 
     boolean placeOrder(List<Cart> selectedItems);
 
+    List<Delivery> getDelivery(String userid);
+
+    boolean insertDelivery(Delivery delivery);
+
+    Boolean deleteDelivery(int deliveryid);
 }

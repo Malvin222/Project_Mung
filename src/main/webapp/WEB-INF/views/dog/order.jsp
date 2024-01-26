@@ -4,6 +4,19 @@
 <%@ page import="java.util.*" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <html>
+<style>
+    /* 라디오 버튼 스타일 */
+    input[type="radio"] {
+        width: 5px;
+        height: 15px;
+        margin: 0; /* 여백을 0으로 설정 */
+    }
+
+    /* 라벨 스타일 */
+    label {
+        font-size: 14px;
+    }
+</style>
 <head>
     <title>주문결제</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -28,15 +41,36 @@
 <div class="addr-container">
     <table>
         <tr>
-            <td>${user.username}</td>
-            <td align="right"><button type="button">배송지 변경</button></td>
+            <td>배송지 관리에서 배송지 추가 및 삭제할수있습니다.<button type="button" id="delivaryManage">배송지 관리</button></td>
+        <tr>
+            <td>
+                <!-- 각 배송지에 대한 루프 -->
+                <c:forEach var="delivery" items="${deliveryList}">
+                <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
+                <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
+                       onclick="setDeliveryInfo('${delivery.deliveryname}'
+                               , '${delivery.customerphone}'
+                               , '${delivery.deliverypostcode}'
+                               , '${delivery.deliveryaddress}')">
+                <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>
+                </c:forEach>
+                <input type="radio" id="newDelivary" name="address"
+                       onclick="newDelivary()">
+                <label for=newDelivary>신규배송지</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="text" name="cusomerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
         </tr>
         <tr>
-            <td>${user.userphone}</td>
+            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">
+            </td>
         </tr>
         <tr>
-            <td>${user.useraddress}</td>
+            <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>
         </tr>
+
         <tr>
             <td>
                 <select id="delivery-option" name="delivery-option">
@@ -121,6 +155,41 @@
             } else {
                 $("#custom-input").hide();
             }
+        });
+    });
+</script>
+
+<script>
+    <!--라디오 버튼 클릭 시 해당 배송지의 정보를 인풋 상자에 설정하는 함수-->
+    function setDeliveryInfo(deliveryName, customerPhone, deliveryPostcode, deliveryAddress) {
+        document.getElementById('customerphone').value = customerPhone;
+        document.getElementById('deliverypostcode').value = deliveryPostcode;
+        document.getElementById('deliveryaddress').value = deliveryAddress;
+    }
+    <!--신규배송지-->
+    function newDelivary(){
+        document.getElementById('customerphone').value = "";
+        document.getElementById('deliverypostcode').value = "";
+        document.getElementById('deliveryaddress').value = "";
+    }
+</script>
+
+<!-- 팝업 창이 닫힐 때 부모 창 리로드 스크립트 추가 -->
+<script>
+    $(document).ready(function(){
+        $("#delivaryManage").click(function(){
+            // 팝업 창을 띄우기 위한 URL
+            var url = "/user/delivery";
+
+            // 팝업 창을 띄우기
+            var popup = window.open(url, "_blank", "width=600,height=400");
+
+            // 팝업이 닫힐 때 실행되는 코드 추가
+            popup.onbeforeunload = function() {
+                if (window.opener && !window.opener.closed) {
+                    window.opener.location.reload();
+                }
+            };
         });
     });
 </script>

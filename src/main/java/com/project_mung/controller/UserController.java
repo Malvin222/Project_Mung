@@ -33,6 +33,7 @@ public class UserController {
     public String insertUser(@ModelAttribute User user, Model model) {
         try {
             userService.insertUser(user);
+            userService.insertUserDelivery(user);
             model.addAttribute("message", "회원 가입이 완료되었습니다.");
             return "redirect:/user/login";
         } catch (DuplicateKeyException e) {

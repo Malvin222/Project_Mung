@@ -39,5 +39,21 @@
         VALUES (#{userid}, #{role});
     </insert>
 
+    <!--기본배송지 추가-->
+    <insert id="insertUserDelivery">
+        INSERT INTO delivery ( userid
+                             , deliveryname
+                             , customername
+                             , customerphone
+                             , deliveryaddress
+                             , deliverypostcode)
+        VALUES ( #{userid}
+               , "기본배송지"
+               , #{username}
+               , #{userphone}
+               , #{useraddress}
+               , #{userpostcode}
+               )
+    </insert>
 
 </mapper>

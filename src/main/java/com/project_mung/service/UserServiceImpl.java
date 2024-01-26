@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService {
 
         userMapper.insertUserRole(userRole);
     }
+
+    @Override
+    public void insertUserDelivery(User user) {
+        userMapper.insertUserDelivery(user);
+    }
 }

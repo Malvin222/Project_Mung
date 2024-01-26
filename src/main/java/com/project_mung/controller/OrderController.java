@@ -1,16 +1,23 @@
 package com.project_mung.controller;
 
 import com.project_mung.domain.Cart;
+import com.project_mung.domain.Delivery;
+import com.project_mung.domain.User;
 import com.project_mung.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+@Log4j2
 @Controller
 public class OrderController {
 
@@ -44,7 +51,45 @@ public class OrderController {
         }
     }
 
+    //배송지 관리
+    @GetMapping("/user/delivery")
+    public String delevery(HttpSession session,Model model){
 
+        User user = (User) session.getAttribute("user");
+        String userid = user.getUserid();
+
+        List<Delivery> deliveryList = orderService.getDelivery(userid);
+        model.addAttribute("deliveryList",deliveryList);
+
+        log.info(deliveryList);
+
+        return "user/delivery";
+    }
+
+    @PostMapping("/user/deliverySave")
+    @ResponseBody
+    public String deliverySave(Delivery delivery){
+
+        Boolean deleverySave = orderService.insertDelivery(delivery);
+
+        if(deleverySave == true){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+    @PostMapping("/user/deliveryRemove")
+    @ResponseBody
+    public String deliveryRemove(int deliveryid){
+        Boolean deliveryRemove = orderService.deleteDelivery(deliveryid);
+
+        if(deliveryRemove == true){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
 
 
 }
