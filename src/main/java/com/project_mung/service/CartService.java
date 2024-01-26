@@ -40,4 +40,5 @@ public interface CartService {
     boolean changeQuantity(int cartid, int amount);
 
     void removeSelectedItems(List<Long> selectedItems);
+
 }

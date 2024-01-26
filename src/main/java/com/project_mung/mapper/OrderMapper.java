@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
+    List<Cart> getOrderItems(List<Integer> cartids);
+
     boolean placeOrder(List<Cart> selectedItems);
 
 }

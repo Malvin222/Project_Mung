@@ -1,12 +1,24 @@
 package com.project_mung.service;
 
 import com.project_mung.domain.Cart;
+import com.project_mung.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService{
+
+    private final OrderMapper orderMapper;
+
+    public OrderServiceImpl(OrderMapper orderMapper) {
+        this.orderMapper = orderMapper;
+    }
+
+    @Override
+    public List<Cart> getOrderItems(List<Integer> cartids) {
+        return orderMapper.getOrderItems(cartids);
+    }
 
     @Override
     public boolean placeOrder(List<Cart> selectedItems) {

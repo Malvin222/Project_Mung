@@ -78,7 +78,7 @@
 <div align="right">
     <table class="total-container" >
         <tr><td><h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2></td></tr>
-        <tr><td><button class="order-button" onclick="placeOrder()"><a href="/dog/order">주문하기</a></button></td></tr>
+        <tr><td><button class="order-button" onclick="placeOrder()">주문하기</button></td></tr>
     </table>
 </div>
 
@@ -148,12 +148,6 @@
         });
     }
 
-
-    // 주문하기 함수
-    function placeOrder() {
-        // 주문하기 관련 로직을 추가
-        // 예: 주문 확인 페이지로 이동 또는 주문 처리 로직 실행
-    }
 
     function updateCnt(cartid,newQuantity){
 
@@ -298,14 +292,24 @@
         $('input[name="selectedItems"]:checked').each(function () {
             selectedItems.push($(this).val());
         });
+        alert(selectedItems);
 
-        // AJAX를 사용하여 서버에 선택된 상품들의 정보를 전송
+        // 선택된 상품이 없으면 알림 후 함수 종료
+        if (selectedItems.length === 0) {
+            alert("선택된 상품이 없습니다.");
+            return;
+        }
+
+        // AJAX를 사용하여 서버에 선택된 상품들의 정보를 전송 ->dogCotroller addToOrder
         $.ajax({
-            url: "/dog/placeOrder",
+            url: "/dog/addToOrder",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(selectedItems),
             success: function (data) {
+                if(data === "success"){
+                    window.location.href = "/dog/order";
+                }
             },
             error: function () {
                 alert("주문 처리 중 오류가 발생했습니다.");
