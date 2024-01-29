@@ -76,25 +76,26 @@
 
 <div class="addr-container">
     <table>
-            <td>
-                <!-- 각 배송지에 대한 루프 -->
-                <c:forEach var="delivery" items="${deliveryList}">
-                    <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
-                    <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
-                           style="width: 10px; height: 15px;"
-                           onclick="setDeliveryInfo('${delivery.deliveryname}',
-                                   '${delivery.customername}'
-                                   , '${delivery.customerphone}'
-                                   , '${delivery.deliverypostcode}'
-                                   , '${delivery.deliveryaddress}'
-                                   , '${delivery.deliveryid}')" >
-                    <label for="${delivery.deliveryname}" style="margin-right:10px; ">${delivery.deliveryname}</label>
-                </c:forEach>
-                <input type="radio" id="newDelivary" name="address"
+        <td>
+            <!-- 각 배송지에 대한 루프 -->
+            <c:forEach var="delivery" items="${deliveryList}">
+                <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
+                <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
                        style="width: 10px; height: 15px;"
-                       onclick="newDelivary()">
-                <label for=newDelivary style="margin-right: 5px;">신규배송지</label>
-            </td>
+                       onclick="setDeliveryInfo('${delivery.deliveryname}',
+                               '${delivery.customername}'
+                               , '${delivery.customerphone}'
+                               , '${delivery.deliverypostcode}'
+                               , '${delivery.deliveryaddress}'
+                               , '${delivery.deliveryid}'
+                               , '${delivery.deliverydetailaddr}')" >
+                <label for="${delivery.deliveryname}" style="margin-right:10px; ">${delivery.deliveryname}</label>
+            </c:forEach>
+            <input type="radio" id="newDelivary" name="address"
+                   style="width: 10px; height: 15px;"
+                   onclick="newDelivary()">
+            <label for=newDelivary style="margin-right: 5px;">신규배송지</label>
+        </td>
         </tr>
         <tr>
             <td><input type="text" name="deliveryname" id="deliveryname" placeholder="배송지이름을 입력해주세요"></td>
@@ -114,25 +115,12 @@
             <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>
         </tr>
         <tr>
-            <td>  <input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소">
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목"></td>
-        </tr>
-        <input hidden name="deliveryid" id="deliveryid">
-        <tr>
             <td>
-                <select id="deliveryoption" name="deliveryoption">
-                    <option value="door">부재 시 문 앞에 놓아주세요.</option>
-                    <option value="call">배송 전 연락바랍니다.</option>
-                    <option value="security">부재 시 경비실에 맡겨주세요.</option>
-                    <option value="custom">직접 입력</option>
-                </select>
+                <input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소">
             </td>
         </tr>
-        <tr id="custom-input" style="display:none;">
-            <td>
-                <input type="text" id="custom-text" name="custom-text" placeholder="배송메모를 입력해주세요.">
-            </td>
-        </tr>
+        <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
+        <input type="hidden" name="deliveryid" id="deliveryid">
     </table>
 </div>
 <div class="button-container">
@@ -149,14 +137,14 @@
 </body>
 <!--배송지 정보-->
 <script>
-    function setDeliveryInfo(deliveryName, customerName, customerPhone, deliveryPostcode, deliveryAddress, deliveryid) {
+    function setDeliveryInfo(deliveryName, customerName, customerPhone, deliveryPostcode, deliveryAddress, deliveryId,deliveryDetailaddr) {
         document.getElementById('deliveryname').value = deliveryName;
         document.getElementById('customername').value = customerName;
         document.getElementById('customerphone').value = customerPhone;
         document.getElementById('deliverypostcode').value = deliveryPostcode;
         document.getElementById('deliveryaddress').value = deliveryAddress;
-        document.getElementById('deliveryoption').value = deliveryoption;
-        document.getElementById('deliveryid').value = deliveryid;
+        document.getElementById('deliveryid').value = deliveryId;
+        document.getElementById('deliverydetailaddr').value = deliveryDetailaddr;
     }
     <!--신규배송지-->
     function newDelivary(){
@@ -165,8 +153,8 @@
         document.getElementById('customerphone').value = "";
         document.getElementById('deliverypostcode').value = "";
         document.getElementById('deliveryaddress').value = "";
-        document.getElementById('deliveryoption').value = "";
         document.getElementById('deliveryid').value = "";
+        document.getElementById('deliverydetailaddr').value = "";
     }
 </script>
 
@@ -176,32 +164,32 @@
         // 새로운 배송지 정보를 가져와서 서버에 저장하도록 구현하세요.
         // 예시: Ajax를 사용하여 서버로 데이터 전송
         var userid = '${sessionScope.user.userid}'
-         $.ajax({
-             url: '/user/deliverySave',
-             type: 'POST',
-             data: {
-                 // 여기에 필요한 데이터를 추가
-                 userid: userid,
-                 deliveryname: document.getElementById('deliveryname').value,
-                 customername: document.getElementById('customername').value,
-                 deliveryaddress: document.getElementById('deliveryaddress').value,
-                 deliverypostcode: document.getElementById('deliverypostcode').value,
-                 deliveryoption: document.getElementById('deliveryoption').value,
-                 customerphone: document.getElementById('customerphone').value,
-                 // ... (나머지 필요한 데이터 추가)
-             },
-             success: function(data) {
-                 if(data === 'success') {
-                     alert("배송지가 저장되었습니다.")
-                     location.reload();
-                     window.opener.location.reload();
-                 }
-             },
-             error: function(error) {
-                 // 저장 실패 시 처리
-                 console.error('배송지 저장 실패', error.responseText);
-             }
-         });
+        $.ajax({
+            url: '/user/deliverySave',
+            type: 'POST',
+            data: {
+                // 여기에 필요한 데이터를 추가
+                userid: userid,
+                deliveryname: document.getElementById('deliveryname').value,
+                customername: document.getElementById('customername').value,
+                deliveryaddress: document.getElementById('deliveryaddress').value,
+                deliverypostcode: document.getElementById('deliverypostcode').value,
+                customerphone: document.getElementById('customerphone').value,
+                deliverydetailaddr: document.getElementById('deliverydetailaddr').value,
+                // ... (나머지 필요한 데이터 추가)
+            },
+            success: function(data) {
+                if(data === 'success') {
+                    alert("배송지가 저장되었습니다.")
+                    location.reload();
+                    window.opener.location.reload();
+                }
+            },
+            error: function(error) {
+                // 저장 실패 시 처리
+                console.error('배송지 저장 실패', error.responseText);
+            }
+        });
     }
 
     // 배송지 삭제 함수
@@ -210,27 +198,27 @@
         // 선택한 배송지를 서버에서 삭제하도록 구현하세요.
         // 예시: Ajax를 사용하여 서버로 데이터 전송
         var deliveryid = document.getElementById('deliveryid').value;
-         $.ajax({
-             url: '/user/deliveryRemove',
-             type: 'POST',
-             data: {
-                 // 여기에 필요한 데이터를 추가
-                 deliveryid: deliveryid,
-                 // ... (나머지 필요한 데이터 추가)
-             },
-             success: function(data) {
-                 // 삭제 성공 시 처리
-                 if(data ==='success'){
-                     alert("배송지가 삭제되었습니다.")
-                     location.reload();
-                     window.opener.location.reload();
-                 }
-             },
-             error: function(error) {
-                 // 삭제 실패 시 처리
-                 console.error('배송지 삭제 실패', error.responseText);
-             }
-         });
+        $.ajax({
+            url: '/user/deliveryRemove',
+            type: 'POST',
+            data: {
+                // 여기에 필요한 데이터를 추가
+                deliveryid: deliveryid,
+                // ... (나머지 필요한 데이터 추가)
+            },
+            success: function(data) {
+                // 삭제 성공 시 처리
+                if(data ==='success'){
+                    alert("배송지가 삭제되었습니다.")
+                    location.reload();
+                    window.opener.location.reload();
+                }
+            },
+            error: function(error) {
+                // 삭제 실패 시 처리
+                console.error('배송지 삭제 실패', error.responseText);
+            }
+        });
     }
 </script>
 

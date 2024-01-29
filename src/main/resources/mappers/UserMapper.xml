@@ -46,13 +46,15 @@
                              , customername
                              , customerphone
                              , deliveryaddress
-                             , deliverypostcode)
+                             , deliverypostcode
+                             , deliverydetailaddr)
         VALUES ( #{userid}
                , "기본배송지"
                , #{username}
                , #{userphone}
                , #{useraddress}
                , #{userpostcode}
+               , #{userdetailaddress}
                )
     </insert>
 

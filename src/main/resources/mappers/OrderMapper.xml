@@ -23,14 +23,14 @@
                          ,customername
                          ,deliveryaddress
                          ,deliverypostcode
-                         ,deliveryoption
+                         ,deliverydetailaddr
                          ,customerphone)
         VALUES (#{userid}
                ,#{deliveryname}
                ,#{customername}
                ,#{deliveryaddress}
                ,#{deliverypostcode}
-               ,#{deliveryoption}
+               ,#{deliverydetailaddr}
                ,#{customerphone})
     </insert>
     <!--배송지삭제-->
