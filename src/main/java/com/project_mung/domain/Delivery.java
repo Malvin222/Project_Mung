@@ -16,4 +16,6 @@ public class Delivery {
         private String deliveryaddress;
         private int deliverypostcode;
         private String customerphone;
+        private String deliveryoption;
+        private String deliverydetailaddr;
 }

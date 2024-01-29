@@ -4,19 +4,6 @@
 <%@ page import="java.util.*" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <html>
-<style>
-    /* 라디오 버튼 스타일 */
-    input[type="radio"] {
-        width: 5px;
-        height: 15px;
-        margin: 0; /* 여백을 0으로 설정 */
-    }
-
-    /* 라벨 스타일 */
-    label {
-        font-size: 14px;
-    }
-</style>
 <head>
     <title>주문결제</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -41,22 +28,20 @@
 <div class="addr-container">
     <table>
         <tr>
-            <td>배송지 관리에서 배송지 추가 및 삭제할수있습니다.<button type="button" id="delivaryManage">배송지 관리</button></td>
+            <td><button type="button" id="delivaryManage">배송지 관리</button></td>
         <tr>
             <td>
                 <!-- 각 배송지에 대한 루프 -->
                 <c:forEach var="delivery" items="${deliveryList}">
                 <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
                 <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
+                       style="width: 10px; height: 15px;"
                        onclick="setDeliveryInfo('${delivery.deliveryname}'
                                , '${delivery.customerphone}'
                                , '${delivery.deliverypostcode}'
                                , '${delivery.deliveryaddress}')">
                 <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>
                 </c:forEach>
-                <input type="radio" id="newDelivary" name="address"
-                       onclick="newDelivary()">
-                <label for=newDelivary>신규배송지</label>
             </td>
         </tr>
 
@@ -73,7 +58,7 @@
 
         <tr>
             <td>
-                <select id="delivery-option" name="delivery-option">
+                <select id="deliveryoption" name="deliveryoption">
                     <option value="door">부재 시 문 앞에 놓아주세요.</option>
                     <option value="call">배송 전 연락바랍니다.</option>
                     <option value="security">부재 시 경비실에 맡겨주세요.</option>
@@ -149,7 +134,7 @@
 </body>
 <script>
     $(document).ready(function(){
-        $("#delivery-option").change(function(){
+        $("#deliveryoption").change(function(){
             if ($(this).val() === "custom") {
                 $("#custom-input").show();
             } else {
@@ -166,12 +151,7 @@
         document.getElementById('deliverypostcode').value = deliveryPostcode;
         document.getElementById('deliveryaddress').value = deliveryAddress;
     }
-    <!--신규배송지-->
-    function newDelivary(){
-        document.getElementById('customerphone').value = "";
-        document.getElementById('deliverypostcode').value = "";
-        document.getElementById('deliveryaddress').value = "";
-    }
+
 </script>
 
 <!-- 팝업 창이 닫힐 때 부모 창 리로드 스크립트 추가 -->
@@ -182,7 +162,7 @@
             var url = "/user/delivery";
 
             // 팝업 창을 띄우기
-            var popup = window.open(url, "_blank", "width=600,height=400");
+            var popup = window.open(url, "_blank", "width=600,height=800");
 
             // 팝업이 닫힐 때 실행되는 코드 추가
             popup.onbeforeunload = function() {

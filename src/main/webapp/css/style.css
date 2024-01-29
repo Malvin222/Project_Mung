@@ -247,7 +247,6 @@ button:hover {
     cursor: pointer;
     padding: 15px 20px;
     font-size: 18px;
-    position: fixed;
     right: 20px;
 }
 
@@ -318,7 +317,7 @@ button:hover {
 }
 
 .addr-container button {
-    margin-left: auto;
+    float: right; /* 오른쪽으로 띄우기 */
 }
 
 .addr-container select, .addr-container input {

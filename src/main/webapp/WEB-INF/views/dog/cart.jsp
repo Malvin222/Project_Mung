@@ -292,7 +292,7 @@
         $('input[name="selectedItems"]:checked').each(function () {
             selectedItems.push($(this).val());
         });
-        alert(selectedItems);
+        // alert(selectedItems);
 
         // 선택된 상품이 없으면 알림 후 함수 종료
         if (selectedItems.length === 0) {

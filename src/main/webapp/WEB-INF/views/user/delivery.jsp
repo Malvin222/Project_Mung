@@ -70,13 +70,6 @@
 <body>
 <!-- 메인 로고 -->
 
-<div class="login-container" style="text-align:right; margin-right:50px;">
-    <c:if test="${not empty sessionScope.user}">
-        ${sessionScope.user.userid}
-        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
-    </c:if>
-</div>
-
 <div class="h2-container">
     <h2>배송정보</h2>
 </div>
@@ -113,7 +106,7 @@
             <td><input type="text" name="cusomerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
         </tr>
         <tr>
-            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">
+            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호" readonly>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
             </td>
         </tr>
@@ -121,13 +114,13 @@
             <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>
         </tr>
         <tr>
-            <td>  <input type="text" id="sample6_detailAddress"  placeholder="상세주소">
+            <td>  <input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소">
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목"></td>
         </tr>
         <input hidden name="deliveryid" id="deliveryid">
         <tr>
             <td>
-                <select id="delivery-option" name="delivery-option">
+                <select id="deliveryoption" name="deliveryoption">
                     <option value="door">부재 시 문 앞에 놓아주세요.</option>
                     <option value="call">배송 전 연락바랍니다.</option>
                     <option value="security">부재 시 경비실에 맡겨주세요.</option>
@@ -162,6 +155,7 @@
         document.getElementById('customerphone').value = customerPhone;
         document.getElementById('deliverypostcode').value = deliveryPostcode;
         document.getElementById('deliveryaddress').value = deliveryAddress;
+        document.getElementById('deliveryoption').value = deliveryoption;
         document.getElementById('deliveryid').value = deliveryid;
     }
     <!--신규배송지-->
@@ -171,6 +165,7 @@
         document.getElementById('customerphone').value = "";
         document.getElementById('deliverypostcode').value = "";
         document.getElementById('deliveryaddress').value = "";
+        document.getElementById('deliveryoption').value = "";
         document.getElementById('deliveryid').value = "";
     }
 </script>
@@ -191,6 +186,7 @@
                  customername: document.getElementById('customername').value,
                  deliveryaddress: document.getElementById('deliveryaddress').value,
                  deliverypostcode: document.getElementById('deliverypostcode').value,
+                 deliveryoption: document.getElementById('deliveryoption').value,
                  customerphone: document.getElementById('customerphone').value,
                  // ... (나머지 필요한 데이터 추가)
              },
@@ -284,11 +280,22 @@
                 document.getElementById('deliverypostcode').value = data.zonecode;
                 document.getElementById("deliveryaddress").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("deliverydetailaddr").focus();
             }
         }).open();
     }
 
+</script>
+<script>
+    $(document).ready(function(){
+        $("#deliveryoption").change(function(){
+            if ($(this).val() === "custom") {
+                $("#custom-input").show();
+            } else {
+                $("#custom-input").hide();
+            }
+        });
+    });
 </script>
 
 </html>

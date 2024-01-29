@@ -101,7 +101,7 @@
   <label for="useremail">이메일</label>
   <input type="email" id="useremail" name="useremail" required>
   <!-- 우편번호 검색 관련 입력 -->
-  <input type="text" id="sample6_postcode" name="userpostcode" placeholder="우편번호">
+  <input type="text" id="sample6_postcode" name="userpostcode" placeholder="우편번호" readonly>
   <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
   <input type="text" id="sample6_address" name="useraddress" placeholder="주소"><br>
   <input type="text" id="sample6_detailAddress" name="userdetailaddress" placeholder="상세주소">
