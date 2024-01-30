@@ -53,7 +53,7 @@ public class OrderController {
 
     //배송지 관리
     @GetMapping("/user/delivery")
-    public String delevery(HttpSession session,Model model){
+    public String delivery(HttpSession session,Model model){
 
         User user = (User) session.getAttribute("user");
         String userid = user.getUserid();
@@ -78,6 +78,21 @@ public class OrderController {
             return "fail";
         }
     }
+
+    @PostMapping("/user/deliveryModify")
+    @ResponseBody
+    public String deliveryModify(Delivery delivery){
+
+        Boolean deliveryModify = orderService.modifyDelivery(delivery);
+
+        if(deliveryModify == true){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+
 
     @PostMapping("/user/deliveryRemove")
     @ResponseBody

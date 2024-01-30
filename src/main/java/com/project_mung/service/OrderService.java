@@ -16,4 +16,6 @@ public interface OrderService {
     boolean insertDelivery(Delivery delivery);
 
     Boolean deleteDelivery(int deliveryid);
+
+    Boolean modifyDelivery(Delivery delivery);
 }

@@ -52,4 +52,9 @@ public class OrderServiceImpl implements OrderService{
     public Boolean deleteDelivery(int deliveryid) {
         return orderMapper.deleteDelivery(deliveryid);
     }
+
+    @Override
+    public Boolean modifyDelivery(Delivery delivery) {
+        return orderMapper.modifyDelivery(delivery);
+    }
 }

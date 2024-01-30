@@ -1,0 +1,136 @@
+body {
+    background: #f1eee9;
+    margin: 0; /* body의 기본 마진을 제거하여 전체 화면을 채우도록 설정 (선택적) */
+    padding: 0; /* body의 기본 패딩을 제거하여 전체 화면을 채우도록 설정 (선택적) */
+    font-family: "Noto Sans KR ExtraLight";
+    color: #4b4a4a;
+}
+
+.h2-container h2 {
+    width: 80%;
+    margin: auto; /* 가운데 정렬을 위해 사용 */
+    margin-bottom: 30px;
+    margin-top: 50px;
+    font-size: 28px;
+}
+
+.addr-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0px auto;
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+.addr-container select, .addr-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d0b7ad;
+}
+
+/* 라디오 버튼 스타일 */
+input[type="radio"] {
+    width: 10px;
+    height: 15px;
+    margin: 0; /* 여백을 0으로 설정 */
+}
+
+/* 라벨 스타일 */
+label {
+    font-size: 14px;
+}
+
+/* 버튼을 가운데 정렬하는 스타일 */
+.button-container {
+    text-align: center;
+    margin-top: 20px; /* 원하는 여백 값으로 조절하세요 */
+}
+
+/* 버튼 스타일 */
+#deliverySave, #deliveryRemove {
+    padding: 10px;
+    background-color: #e3ccc3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+
+/* 버튼 호버 효과 스타일 */
+#deliverySave:hover, #deliveryRemove:hover {
+    background-color: #d0b7ad;
+}
+
+/* 인풋 상자들을 가운데 정렬하는 스타일 */
+input[type="text"], select {
+    width: 80%; /* 인풋 상자의 너비를 조절할 수 있습니다. */
+    padding: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* 우편번호 찾기 버튼 스타일 */
+input[type="button"] {
+    width: auto; /* 기본 크기 유지 */
+    padding: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+/* 각 배송지 정보를 감싸는 컨테이너에 스타일 적용 */
+.delivery-info td {
+    border: 1px solid #4b4a4a;
+    padding: 10px;
+}
+
+.delivery-info {
+    border-collapse: separate;
+    border-spacing: 0 30px; /* 첫 번째 값은 수평 간격, 두 번째 값은 수직 간격 */
+}
+
+.delivery-info label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#newDeliveryRow,
+#customerNameRow,
+#customerPhoneRow,
+#deliveryPostcodeRow,
+#deliveryAddressRow,
+#deliveryDetailAddrRow,
+#saveButtonRow {
+    display: table-row; /* 배송지 수정 양식이 나타날 수 있도록 변경 */
+    text-align: center; /* 가운데 정렬 */
+}
+
+
+
+

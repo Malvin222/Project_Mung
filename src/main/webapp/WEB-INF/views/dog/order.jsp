@@ -35,7 +35,7 @@
 <div class="addr-container">
     <table>
         <tr>
-            <td><button type="button" id="delivaryManage">배송지 관리</button></td>
+            <td><button type="button" id="deliveryManage">배송지 관리</button></td>
         <tr>
             <td>
                 <!-- 각 배송지에 대한 루프 -->
@@ -47,7 +47,8 @@
                                    , '${delivery.customerphone}'
                                    , '${delivery.deliverypostcode}'
                                    , '${delivery.deliveryaddress}'
-                                   , '${delivery.deliverydetailaddr}')"
+                                   , '${delivery.deliverydetailaddr}'
+                                   , '${delivery.deliveryid}')"
                            <c:if test="${delivery.deliveryname eq '기본배송지'}">checked</c:if>>
                     <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>
                 </c:forEach>
@@ -56,7 +57,7 @@
 
 
         <tr>
-            <td><input type="text" name="cusomerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
+            <td><input type="text" name="customerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
         </tr>
         <tr>
             <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">
@@ -68,7 +69,7 @@
         <tr>
             <td><input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소"></td>
         </tr>
-
+        <input type="hidden" id="deliveryid" name="deliveryid" value="deliveryid">
         <tr>
             <td>
                 <select id="deliveryoption" name="deliveryoption">
@@ -104,12 +105,10 @@
                 <td>${item.dogfoodname}</td>
                 <td>${item.dogfoodprice}</td>
                 <td>${item.itemcnt}</td>
-                <td>${item.totalprice}</td>
             </tr>
         </c:forEach>
     </table>
 </div>
-
 <div class="total-price-container">
     <table >
         <tr align="right">
@@ -160,11 +159,13 @@
 
 <script>
     <!--라디오 버튼 클릭 시 해당 배송지의 정보를 인풋 상자에 설정하는 함수-->
-    function setDeliveryInfo(deliveryName, customerPhone, deliveryPostcode, deliveryAddress, deliveryDetailAddr) {
+    function setDeliveryInfo(deliveryName, customerPhone, deliveryPostcode, deliveryAddress, deliveryDetailAddr,deliveryId) {
         document.getElementById('customerphone').value = customerPhone;
         document.getElementById('deliverypostcode').value = deliveryPostcode;
         document.getElementById('deliveryaddress').value = deliveryAddress;
         document.getElementById('deliverydetailaddr').value = deliveryDetailAddr;
+        document.getElementById('deliverydetailaddr').value = deliveryDetailAddr;
+        document.getElementById('deliveryid').value = deliveryId;
     }
 
 </script>
@@ -172,7 +173,7 @@
 <!-- 팝업 창이 닫힐 때 부모 창 리로드 스크립트 추가 -->
 <script>
     $(document).ready(function(){
-        $("#delivaryManage").click(function(){
+        $("#deliveryManage").click(function(){
             // 팝업 창을 띄우기 위한 URL
             var url = "/user/delivery";
 
@@ -189,66 +190,6 @@
     });
 </script>
 
-
-<%--<script>--%>
-<%--    // 구매자 정보--%>
-<%--    const userid = document.getElementById('userid').value;--%>
-
-<%--    // 결제창 함수 넣어주기--%>
-<%--    const buyButton = document.getElementById('payment')--%>
-<%--    buyButton.setAttribute('onclick', `kakaoPay('${userid}')`)--%>
-
-<%--    var IMP = window.IMP;--%>
-
-<%--    var today = new Date();--%>
-<%--    var hours = today.getHours(); // 시--%>
-<%--    var minutes = today.getMinutes();  // 분--%>
-<%--    var seconds = today.getSeconds();  // 초--%>
-<%--    var milliseconds = today.getMilliseconds();--%>
-<%--    var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;--%>
-
-<%--    function kakaoPay(userid) {--%>
-<%--        if (confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기--%>
-<%--            if (localStorage.getItem("access")) { // 회원만 결제 가능--%>
-<%--                // const emoticonName = document.getElementById('title').innerText--%>
-
-<%--                IMP.init('imp58014382'); // 가맹점 식별코드--%>
-<%--                IMP.request_pay({--%>
-<%--                    pg: 'kakaopay.TC0ONETIME', // PG사 코드표에서 선택--%>
-<%--                    pay_method: 'card', // 결제 방식--%>
-<%--                    merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호--%>
-<%--                    name: '상품명', // 제품명--%>
-<%--                    amount: 100, // 가격--%>
-<%--                    //구매자 정보 ↓--%>
-<%--                    buyer_id: `${userid}`,--%>
-<%--                    // buyer_tel : '010-1234-5678',--%>
-<%--                    // buyer_addr : '서울특별시 강남구 삼성동',--%>
-<%--                    // buyer_postcode : '123-456'--%>
-<%--                }, async function (rsp) { // callback--%>
-<%--                    if (rsp.success) { //결제 성공시--%>
-<%--                        console.log(rsp);--%>
-<%--                        //결제 성공시 프로젝트 DB저장 요청--%>
-<%--                        if (response.status == 200) { // DB저장 성공시--%>
-<%--                            alert('결제 완료!')--%>
-<%--                            window.location.reload();--%>
-<%--                        } else { // 결제완료 후 DB저장 실패시--%>
-<%--                            alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);--%>
-<%--                            // DB저장 실패시 status에 따라 추가적인 작업 가능성--%>
-<%--                        }--%>
-<%--                    } else if (rsp.success == false) { // 결제 실패시--%>
-<%--                        alert(rsp.error_msg)--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            }--%>
-<%--            else { // 비회원 결제 불가--%>
-<%--                alert('로그인이 필요합니다!')--%>
-<%--            }--%>
-<%--        } else { // 구매 확인 알림창 취소 클릭시 돌아가기--%>
-<%--            return false;--%>
-<%--        }--%>
-<%--    }--%>
-
-<%--</script>--%>
 <script>
     // 결제하기 버튼 클릭 시 실행되는 함수
     function handlePayment() {
@@ -264,26 +205,54 @@
         }
     }
 
+    // 현재 날짜와 시간을 가져오는 부분
+    var currentDate = new Date();
+    var formattedDate = currentDate.toISOString().slice(0, 19).replace("T", " "); // ISO 형식에서 필요한 부분만 추출
+    var seconds = currentDate.getSeconds();
+
+    // 랜덤 숫자를 생성하는 부분 (예: 1부터 100까지의 랜덤 숫자)
+    var randomNum = Math.floor(Math.random() * 1000) + 1;
+
+    // 현재 날짜, 시간, 초, 그리고 랜덤 숫자를 합치는 부분
+    var combinedResult = formattedDate + ' ' + seconds + ' ' + randomNum;
+    var merchant_uid = combinedResult;
+
+
+    var dogfoodNames = '${orderItems[0].dogfoodname}'
+
+    var totalPrice = '${totalPrice}';   //총결제금액
+    var buyer_email = '${sessionScope.user.useremail}';
+    var buyer_name = '${sessionScope.user.username}';
+    var buyer_tel = '${sessionScope.user.userphone}';
+    var userid = '${sessionScope.user.userid}';
+
+    // 배송지 정보
+    var deliveryid = document.getElementById('deliveryid').value;
+    var orderdate = formattedDate + ' ' + seconds;
+
     // KakaoPay 함수 정의
-    function kakaoPay(userid) {
+    function kakaoPay() {
         if (confirm("구매 하시겠습니까?")) {
             IMP.init('imp58014382'); // IMP.init 함수에 가맹점 식별코드를 넣어야 합니다.
-
             // 결제 요청 로직
             IMP.request_pay({
                 // 결제 정보 설정
                 pg: 'kakaopay.TC0ONETIME',
                 pay_method: 'card',
-                merchant_uid: "고유 주문번호", // 고유한 주문번호로 변경해야 합니다. //orderid
-                // name: '상품명', // 구매하는 상품명으로 변경해야 합니다.
-                amount: 100, // 결제할 금액으로 변경해야 합니다.
-                buyer_email: '구매자 이메일', // 구매자의 이메일 주소로 변경해야 합니다.
-                buyer_name: '구매자 이름', // 구매자의 이름으로 변경해야 합니다.
-                buyer_tel: '구매자 전화번호' // 구매자의 전화번호로 변경해야 합니다.
+                merchant_uid: merchant_uid, // 고유한 주문번호로 변경해야 합니다. //orderid
+                name: dogfoodNames, // 구매하는 상품명으로 변경해야 합니다.
+                amount: totalPrice, // 결제할 금액으로 변경해야 합니다.
+                buyer_email: buyer_email, // 구매자의 이메일 주소로 변경해야 합니다.
+                buyer_name: buyer_name, // 구매자의 이름으로 변경해야 합니다.
+                buyer_tel: buyer_tel // 구매자의 전화번호로 변경해야 합니다.
             }, function (rsp) { // 콜백 함수
                 if (rsp.success) { // 결제 성공 시
                     console.log(rsp);
                     // 결제 성공 처리 로직 추가
+
+                    // 루프 외부에서 saveOrder 호출
+                    saveOrder(userid, '카카오페이', deliveryid, orderdate, rsp.merchant_uid);
+
                     alert('결제가 완료되었습니다.');
                 } else { // 결제 실패 시
                     console.log(rsp);
@@ -295,14 +264,34 @@
             return false;
         }
     }
-
-    // 문서가 준비되면 실행되는 함수
-    //     $(document).ready(function(){
-    //     // 결제하기 버튼 클릭 시 handlePayment 함수 실행
-    //     $("#payment").click(function(){
-    //         handlePayment();
-    //     });
-    // });
+    <!-- 주문정보 저장 -->
+    function saveOrder(userid, paymentMethod, deliveryid, orderdate, merchantuid) {
+        $.ajax({
+            type: 'POST',
+            url: '/order/saveOrder',
+            contentType: 'application/json', // 미디어 타입 설정
+            data: JSON.stringify({
+                userid: userid,
+                paymentMethod: paymentMethod,
+                deliveryid: deliveryid,
+                orderdate :orderdate,
+                merchantuid : merchantuid,
+            }),
+            success: function (response) {
+                if (response === 'success') {
+                    alert("저장성공")
+                    // 여기에 필요한 추가 로직을 수행하세요.
+                } else {
+                    alert("저장실패"+response)
+                    console.log('결제 정보 저장 실패');
+                }
+            },
+            error: function (error) {
+                alert("서버오류")
+                console.log('서버 오류', error);
+            }
+        });
+    }
 </script>
 
 

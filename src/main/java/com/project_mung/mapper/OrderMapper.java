@@ -18,4 +18,6 @@ public interface OrderMapper {
     boolean insertDelivery(Delivery delivery);
 
     Boolean deleteDelivery(int deliveryid);
+
+    Boolean modifyDelivery(Delivery delivery);
 }

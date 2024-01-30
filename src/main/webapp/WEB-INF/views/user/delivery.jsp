@@ -4,137 +4,112 @@
 <%@ page import="java.util.*" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <html>
-<style>
-    td {
-        text-align: center;
-    }
-
-    /* 라디오 버튼 스타일 */
-    input[type="radio"] {
-        width: 10px;
-        height: 15px;
-        margin: 0; /* 여백을 0으로 설정 */
-    }
-
-    /* 라벨 스타일 */
-    label {
-        font-size: 14px;
-    }
-    /* 버튼을 가운데 정렬하는 스타일 */
-    .button-container {
-        text-align: center;
-        margin-top: 20px; /* 원하는 여백 값으로 조절하세요 */
-    }
-
-    /* 버튼 스타일 */
-    #delivarySave, #delivaryRemove {
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #4CAF50; /* 원하는 배경색으로 조절하세요 */
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-right: 10px; /* 버튼 사이의 간격을 조절하세요 */
-    }
-
-    /* 버튼 호버 효과 스타일 */
-    #delivarySave:hover, #delivaryRemove:hover {
-        background-color: #45a049; /* 원하는 호버 배경색으로 조절하세요 */
-    }
-    /* 인풋 상자들을 가운데 정렬하는 스타일 */
-    input[type="text"], select {
-        width: 80%; /* 인풋 상자의 너비를 조절할 수 있습니다. */
-        padding: 10px;
-        margin: 5px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    /* 우편번호 찾기 버튼 스타일 */
-    input[type="button"] {
-        width: auto; /* 기본 크기 유지 */
-        padding: 10px;
-        margin: 5px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        cursor: pointer;
-    }
-</style>
 <head>
     <title>배송지 관리</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/delivery.css">
 </head>
 <body>
-<!-- 메인 로고 -->
-
 <div class="h2-container">
-    <h2>배송정보</h2>
+    <h2>배송지 목록</h2>
 </div>
 
 <div class="addr-container">
     <table>
-        <td>
-            <!-- 각 배송지에 대한 루프 -->
-            <c:forEach var="delivery" items="${deliveryList}">
-                <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
-                <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
-                       style="width: 10px; height: 15px;"
-                       onclick="setDeliveryInfo('${delivery.deliveryname}',
-                               '${delivery.customername}'
-                               , '${delivery.customerphone}'
-                               , '${delivery.deliverypostcode}'
-                               , '${delivery.deliveryaddress}'
-                               , '${delivery.deliveryid}'
-                               , '${delivery.deliverydetailaddr}')" >
-                <label for="${delivery.deliveryname}" style="margin-right:10px; ">${delivery.deliveryname}</label>
-            </c:forEach>
-            <input type="radio" id="newDelivary" name="address"
-                   style="width: 10px; height: 15px;"
-                   onclick="newDelivary()">
-            <label for=newDelivary style="margin-right: 5px;">신규배송지</label>
-        </td>
-        </tr>
         <tr>
+            <td colspan="2" style="text-align: center;">
+                <!-- 신규 배송지 버튼 -->
+                <button type="button" id="newDeliveryButton" onclick="showNewDeliveryForm()">
+                    배송지 추가</button>
+            </td>
+        </tr>
+    </table>
+    <!-- 신규 배송지 입력 양식 -->
+    <table style="text-align:center">
+        <tr id="newDeliveryRow" style="display: none;">
             <td><input type="text" name="deliveryname" id="deliveryname" placeholder="배송지이름을 입력해주세요"></td>
         </tr>
-        <tr>
+        <tr id="customerNameRow" style="display: none;">
             <td><input type="text" name="customername" id="customername" placeholder="수령인이름을 입력해주세요"></td>
         </tr>
-        <tr>
-            <td><input type="text" name="cusomerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
+        <tr id="customerPhoneRow" style="display: none;">
+            <td><input type="text" name="customerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
         </tr>
-        <tr>
+        <tr id="deliveryPostcodeRow" style="display: none;">
             <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호" readonly>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
             </td>
         </tr>
-        <tr>
+        <tr id="deliveryAddressRow" style="display: none;">
             <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>
         </tr>
-        <tr>
+        <tr id="deliveryDetailAddrRow" style="display: none;">
             <td>
-                <input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소">
+                <input type="text" id="deliverydetailaddr" name="deliverydetailaddr" placeholder="상세주소">
+            </td>
+            <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
+        </tr>
+        <tr id="saveButtonRow" style="display:none; text-align:center">
+            <td colspan="2">
+                <button type="button" id="deliverySave" onclick="deliverySave()">저장</button>
+                <button type="button" onclick="hideDelivery()">취소</button>
             </td>
         </tr>
-        <input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
-        <input type="hidden" name="deliveryid" id="deliveryid">
+
     </table>
+
+    <table class="delivery-info">
+        <!-- 각 배송지에 대한 루프 -->
+        <c:forEach var="delivery" items="${deliveryList}">
+            <tr>
+                <td>
+                    <label for="${delivery.deliveryname}" class="delivery-name">${delivery.deliveryname}</label>
+                    <input type="hidden" id="deliveryid" name="deliveryid" value="${delivery.deliveryid}">
+                    <!-- 각 배송지의 삭제 버튼에 클릭 이벤트 핸들러 추가 -->
+                    <button type="button" id="deliveryRemove" onclick="deliveryRemove(${delivery.deliveryid})" style="float:right">삭제</button>
+                    <button type="button" id="deliveryModify" onclick="deliveryModify(this)" style="float:right">수정</button>
+                    <br>
+                    <span class="customer-name">${delivery.customername}</span><br>
+                    <span class="customer-phone">${delivery.customerphone}</span><br>
+                    <span class="delivery-address">${delivery.deliveryaddress}</span>
+                    <span class="delivery-detail-addr">${delivery.deliverydetailaddr}</span>
+                    <span class="delivery-postcode">${delivery.deliverypostcode}</span>
+                </td>
+            </tr>
+        </c:forEach>
+
+    </table>
+
 </div>
-<div class="button-container">
-    <button type="button" id="delivarySave" onclick="deliverySave()">저장</button>
-    <button type="button" id="delivaryRemove" onclick="deliveryRemove()">삭제</button>
-</div>
-<!-- Footer -->
-<footer>
-    &copy; 2024 Your Website Name. All rights reserved.
-</footer>
-
-
-
 </body>
+
+<script>
+    function showNewDeliveryForm() {
+        document.getElementById('newDeliveryRow').style.display = 'table-row';
+        document.getElementById('customerNameRow').style.display = 'table-row';
+        document.getElementById('customerPhoneRow').style.display = 'table-row';
+        document.getElementById('deliveryPostcodeRow').style.display = 'table-row';
+        document.getElementById('deliveryAddressRow').style.display = 'table-row';
+        document.getElementById('deliveryDetailAddrRow').style.display = 'table-row';
+        document.getElementById('saveButtonRow').style.display = 'table-row';
+    }
+    function hideDelivery() {
+        document.getElementById('newDeliveryRow').style.display = 'none';
+        document.getElementById('customerNameRow').style.display = 'none';
+        document.getElementById('customerPhoneRow').style.display = 'none';
+        document.getElementById('deliveryPostcodeRow').style.display = 'none';
+        document.getElementById('deliveryAddressRow').style.display = 'none';
+        document.getElementById('deliveryDetailAddrRow').style.display = 'none';
+        document.getElementById('saveButtonRow').style.display = 'none';
+    }
+
+    function deliveryAdd() {
+        // 배송지 추가 폼을 표시합니다.
+        showNewDeliveryForm();
+    }
+
+
+</script>
+
 <!--배송지 정보-->
 <script>
     function setDeliveryInfo(deliveryName, customerName, customerPhone, deliveryPostcode, deliveryAddress, deliveryId,deliveryDetailaddr) {
@@ -147,7 +122,7 @@
         document.getElementById('deliverydetailaddr').value = deliveryDetailaddr;
     }
     <!--신규배송지-->
-    function newDelivary(){
+    function newDelivery(){
         document.getElementById('deliveryname').value = "";
         document.getElementById('customername').value = "";
         document.getElementById('customerphone').value = "";
@@ -156,19 +131,18 @@
         document.getElementById('deliveryid').value = "";
         document.getElementById('deliverydetailaddr').value = "";
     }
+
 </script>
 
 <script>
+    // 배송지 추가 로직
     function deliverySave() {
-        // 여기에 저장 로직을 추가하면 됩니다.
-        // 새로운 배송지 정보를 가져와서 서버에 저장하도록 구현하세요.
-        // 예시: Ajax를 사용하여 서버로 데이터 전송
-        var userid = '${sessionScope.user.userid}'
+        // 배송지 정보를 서버로 전송하여 저장합니다.
+        var userid = '${sessionScope.user.userid}';
         $.ajax({
             url: '/user/deliverySave',
             type: 'POST',
             data: {
-                // 여기에 필요한 데이터를 추가
                 userid: userid,
                 deliveryname: document.getElementById('deliveryname').value,
                 customername: document.getElementById('customername').value,
@@ -186,24 +160,73 @@
                 }
             },
             error: function(error) {
-                // 저장 실패 시 처리
                 console.error('배송지 저장 실패', error.responseText);
+            }
+        });
+    }
+
+    function deliveryModify(button) {
+        // 수정 폼을 표시합니다.
+        showNewDeliveryForm();
+
+        // 수정할 배송지의 정보를 가져옵니다.
+        var deliveryRow = button.closest("tr");
+        var deliveryName = deliveryRow.querySelector(".delivery-name").textContent.trim();
+        var customerName = deliveryRow.querySelector(".customer-name").textContent.trim();
+        var customerPhone = deliveryRow.querySelector(".customer-phone").textContent.trim();
+        var deliveryAddress = deliveryRow.querySelector(".delivery-address").textContent.trim();
+        var deliveryDetailAddr = deliveryRow.querySelector(".delivery-detail-addr").textContent.trim();
+        var deliveryPostcode = deliveryRow.querySelector(".delivery-postcode").textContent.trim();
+
+        // 가져온 정보를 인풋 상자에 설정합니다.
+        document.getElementById('deliveryname').value = deliveryName;
+        document.getElementById('customername').value = customerName;
+        document.getElementById('customerphone').value = customerPhone;
+        document.getElementById('deliverypostcode').value = deliveryPostcode;
+        document.getElementById('deliveryaddress').value = deliveryAddress;
+        document.getElementById('deliverydetailaddr').value = deliveryDetailAddr;
+    }
+
+    function deliveryUpdate() {
+        // 수정된 배송지 정보를 서버로 전송하여 저장합니다.
+        var userid = '${sessionScope.user.userid}';
+        var deliveryId = document.getElementById('deliveryid').value;
+        $.ajax({
+            url: '/user/deliveryModify',
+            type: 'POST',
+            data: {
+                userid: userid,
+                deliveryid: deliveryId,
+                deliveryname: document.getElementById('deliveryname').value,
+                customername: document.getElementById('customername').value,
+                deliveryaddress: document.getElementById('deliveryaddress').value,
+                deliverypostcode: document.getElementById('deliverypostcode').value,
+                customerphone: document.getElementById('customerphone').value,
+                deliverydetailaddr: document.getElementById('deliverydetailaddr').value,
+                // ... (나머지 필요한 데이터 추가)
+            },
+            success: function(data) {
+                if(data === 'success') {
+                    alert("배송지가 수정되었습니다.")
+                    location.reload();
+                    window.opener.location.reload();
+                }
+            },
+            error: function(error) {
+                console.error('배송지 수정 실패', error.responseText);
             }
         });
     }
 
     // 배송지 삭제 함수
     function deliveryRemove() {
-        // 여기에 삭제 로직을 추가하면 됩니다.
-        // 선택한 배송지를 서버에서 삭제하도록 구현하세요.
-        // 예시: Ajax를 사용하여 서버로 데이터 전송
-        var deliveryid = document.getElementById('deliveryid').value;
+
         $.ajax({
             url: '/user/deliveryRemove',
             type: 'POST',
             data: {
                 // 여기에 필요한 데이터를 추가
-                deliveryid: deliveryid,
+                deliveryid: document.getElementById('deliveryid').value,
                 // ... (나머지 필요한 데이터 추가)
             },
             success: function(data) {
