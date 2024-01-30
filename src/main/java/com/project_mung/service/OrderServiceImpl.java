@@ -2,6 +2,7 @@ package com.project_mung.service;
 
 import com.project_mung.domain.Cart;
 import com.project_mung.domain.Delivery;
+import com.project_mung.domain.Order;
 import com.project_mung.mapper.OrderMapper;
 import org.springframework.stereotype.Service;
 
@@ -57,4 +58,16 @@ public class OrderServiceImpl implements OrderService{
     public Boolean modifyDelivery(Delivery delivery) {
         return orderMapper.modifyDelivery(delivery);
     }
+
+    @Override
+    public Boolean saveOrder(Order order) {
+        return orderMapper.saveOrder(order);
+    }
+
+    @Override
+    public Boolean updateCart(Order order) {
+        return orderMapper.updateCart(order);
+    }
+
+
 }

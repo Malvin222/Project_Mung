@@ -2,6 +2,7 @@ package com.project_mung.service;
 
 import com.project_mung.domain.Cart;
 import com.project_mung.domain.Delivery;
+import com.project_mung.domain.Order;
 
 import java.util.List;
 
@@ -16,6 +17,10 @@ public interface OrderService {
     boolean insertDelivery(Delivery delivery);
 
     Boolean deleteDelivery(int deliveryid);
+
+    Boolean saveOrder(Order order);
+
+    Boolean updateCart(Order order);
 
     Boolean modifyDelivery(Delivery delivery);
 }

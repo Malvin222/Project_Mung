@@ -51,4 +51,21 @@
         DELETE FROM delivery WHERE deliveryid = #{deliveryid}
     </delete>
 
+    <!--주문정보 저장-->
+    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderid">
+        INSERT INTO `order` (userid,
+                          paymentmethod,
+                          deliveryid,
+                          orderdate)
+        VALUES (#{userid}
+                ,#{paymentmethod}
+                ,#{deliveryid}
+                ,#{orderdate}
+               )
+    </insert>
+
+    <update id="updateCart">
+        UPDATE cart SET orderdate = #{orderdate} WHERE userid = #{userid}
+    </update>
+
 </mapper>

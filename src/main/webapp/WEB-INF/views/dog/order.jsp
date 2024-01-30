@@ -220,15 +220,15 @@
 
     var dogfoodNames = '${orderItems[0].dogfoodname}'
 
-    var totalPrice = '${totalPrice}';   //총결제금액
+    var totalPrice = parseFloat('${totalPrice}');   //총결제금액
     var buyer_email = '${sessionScope.user.useremail}';
     var buyer_name = '${sessionScope.user.username}';
     var buyer_tel = '${sessionScope.user.userphone}';
     var userid = '${sessionScope.user.userid}';
 
     // 배송지 정보
-    var deliveryid = document.getElementById('deliveryid').value;
-    var orderdate = formattedDate + ' ' + seconds;
+    var deliveryid = parseInt(document.getElementById('deliveryid').value); // 숫자로 변환
+    var orderdate = formattedDate + ' ' + seconds; // seconds의 앞 8자리를 가져와서 사용
 
     // KakaoPay 함수 정의
     function kakaoPay() {
@@ -288,7 +288,7 @@
             },
             error: function (error) {
                 alert("서버오류")
-                console.log('서버 오류', error);
+                console.log('서버 오류', error.responseText);
             }
         });
     }

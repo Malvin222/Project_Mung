@@ -2,19 +2,21 @@ package com.project_mung.controller;
 
 import com.project_mung.domain.Cart;
 import com.project_mung.domain.Delivery;
+import com.project_mung.domain.Order;
 import com.project_mung.domain.User;
 import com.project_mung.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Log4j2
@@ -106,5 +108,20 @@ public class OrderController {
         }
     }
 
+    @Transactional
+    @PostMapping("/order/saveOrder")
+    @ResponseBody
+    public String saveOrder(@RequestBody Order order){
+        Boolean saveOrder = orderService.saveOrder(order);
+        log.info("Save Order Request Received: {}", order);
+        if(saveOrder){
+            Boolean updateCart = orderService.updateCart(order);
+            if(updateCart){
+                return "success";
+            }
+
+        }
+        return "fail";
+    }
 
 }
