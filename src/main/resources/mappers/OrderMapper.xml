@@ -60,12 +60,23 @@
         VALUES (#{userid}
                 ,#{paymentmethod}
                 ,#{deliveryid}
-                ,#{orderdate}
+                ,NOW()
                )
     </insert>
 
-    <update id="updateCart">
-        UPDATE cart SET orderdate = #{orderdate} WHERE userid = #{userid}
+
+    <update id="updateCart" parameterType="java.util.List">
+        UPDATE cart SET orderdate = NOW() WHERE cartid IN
+        <foreach collection="list" item="cartid" open="(" separator="," close=")">
+            #{cartid}
+        </foreach>
     </update>
+    <!--
+    <update id="updateCart" parameterType="java.util.List">
+        <foreach collection="list" item="cartid" separator=";">
+            UPDATE cart SET orderdate = NOW() WHERE cartid = #{cartid}
+        </foreach>
+    </update>
+-->
 
 </mapper>

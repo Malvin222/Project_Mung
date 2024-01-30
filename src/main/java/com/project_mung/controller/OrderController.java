@@ -111,11 +111,14 @@ public class OrderController {
     @Transactional
     @PostMapping("/order/saveOrder")
     @ResponseBody
-    public String saveOrder(@RequestBody Order order){
+    public String saveOrder(@RequestBody Order order,HttpSession session){
+        //선택 주문목록 받아오기
+        List<Integer> cartid = (List<Integer>) session.getAttribute("selectedItems");
+
         Boolean saveOrder = orderService.saveOrder(order);
-        log.info("Save Order Request Received: {}", order);
+
         if(saveOrder){
-            Boolean updateCart = orderService.updateCart(order);
+            Boolean updateCart = orderService.updateCart(cartid);
             if(updateCart){
                 return "success";
             }

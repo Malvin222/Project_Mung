@@ -20,7 +20,7 @@ public interface OrderService {
 
     Boolean saveOrder(Order order);
 
-    Boolean updateCart(Order order);
+    Boolean updateCart(List<Integer> cartid);
 
     Boolean modifyDelivery(Delivery delivery);
 }

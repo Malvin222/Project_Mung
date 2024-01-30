@@ -40,6 +40,7 @@
             <td>
                 <!-- 각 배송지에 대한 루프 -->
                 <c:forEach var="delivery" items="${deliveryList}">
+                    <input type="hidden" id="deliveryid" name="deliveryid" value="${delivery.deliveryid}">
                     <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
                     <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
                            style="width: 10px; height: 15px;"
@@ -69,7 +70,6 @@
         <tr>
             <td><input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소"></td>
         </tr>
-        <input type="hidden" id="deliveryid" name="deliveryid" value="deliveryid">
         <tr>
             <td>
                 <select id="deliveryoption" name="deliveryoption">
@@ -107,6 +107,7 @@
                 <td>${item.itemcnt}</td>
             </tr>
         </c:forEach>
+
     </table>
 </div>
 <div class="total-price-container">
@@ -225,9 +226,11 @@
     var buyer_name = '${sessionScope.user.username}';
     var buyer_tel = '${sessionScope.user.userphone}';
     var userid = '${sessionScope.user.userid}';
+    var paymentmethod = "카카오페이";
+
 
     // 배송지 정보
-    var deliveryid = parseInt(document.getElementById('deliveryid').value); // 숫자로 변환
+    var deliveryid = document.getElementById('deliveryid').value; // 숫자로 변환
     var orderdate = formattedDate + ' ' + seconds; // seconds의 앞 8자리를 가져와서 사용
 
     // KakaoPay 함수 정의
@@ -238,7 +241,7 @@
             IMP.request_pay({
                 // 결제 정보 설정
                 pg: 'kakaopay.TC0ONETIME',
-                pay_method: 'card',
+                pay_method: paymentmethod,
                 merchant_uid: merchant_uid, // 고유한 주문번호로 변경해야 합니다. //orderid
                 name: dogfoodNames, // 구매하는 상품명으로 변경해야 합니다.
                 amount: totalPrice, // 결제할 금액으로 변경해야 합니다.
@@ -249,9 +252,7 @@
                 if (rsp.success) { // 결제 성공 시
                     console.log(rsp);
                     // 결제 성공 처리 로직 추가
-
-                    // 루프 외부에서 saveOrder 호출
-                    saveOrder(userid, '카카오페이', deliveryid, orderdate, rsp.merchant_uid);
+                        saveOrder(userid, '카카오페이', deliveryid, orderdate, rsp.merchant_uid);
 
                     alert('결제가 완료되었습니다.');
                 } else { // 결제 실패 시
@@ -265,14 +266,14 @@
         }
     }
     <!-- 주문정보 저장 -->
-    function saveOrder(userid, paymentMethod, deliveryid, orderdate, merchantuid) {
+    function saveOrder(userid, paymentmethod, deliveryid, orderdate, merchantuid) {
         $.ajax({
             type: 'POST',
             url: '/order/saveOrder',
             contentType: 'application/json', // 미디어 타입 설정
             data: JSON.stringify({
                 userid: userid,
-                paymentMethod: paymentMethod,
+                paymentmethod: paymentmethod,
                 deliveryid: deliveryid,
                 orderdate :orderdate,
                 merchantuid : merchantuid,

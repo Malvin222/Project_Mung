@@ -3,7 +3,6 @@ package com.project_mung.mapper;
 import com.project_mung.domain.Cart;
 import com.project_mung.domain.Delivery;
 import com.project_mung.domain.Order;
-import com.project_mung.domain.Order;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface OrderMapper {
 
     Boolean saveOrder(Order order);
 
-    Boolean updateCart(Order order);
+    Boolean updateCart(List<Integer> cartid);
 
     Boolean modifyDelivery(Delivery delivery);
 }

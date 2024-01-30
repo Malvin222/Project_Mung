@@ -65,8 +65,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Boolean updateCart(Order order) {
-        return orderMapper.updateCart(order);
+    public Boolean updateCart(List<Integer> cartid) {
+        return orderMapper.updateCart(cartid);
     }
 
 
