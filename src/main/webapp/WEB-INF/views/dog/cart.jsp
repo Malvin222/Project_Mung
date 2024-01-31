@@ -82,16 +82,6 @@
     </table>
 </div>
 
-<%--<div align="right">--%>
-<%--    <form id="orderForm" action="/dog/order" method="post">--%>
-<%--        <!-- 선택된 상품들의 정보를 hidden input으로 추가 -->--%>
-<%--        <c:forEach var="item" items="${cartItems}">--%>
-<%--            <input type="hidden" name="selectedItems" value="${item.cartid}">--%>
-<%--        </c:forEach>--%>
-<%--        <button class="order-button" type="submit">주문하기</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
 <!-- Footer -->
 <footer>
     &copy; 2024 Your Website Name. All rights reserved.

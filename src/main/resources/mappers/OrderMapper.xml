@@ -14,7 +14,7 @@
 
     <!--배송지 조회-->
     <select id="getDelivery">
-        SELECT * FROM delivery WHERE userid = #{userid}
+        SELECT * FROM delivery WHERE userid = #{userid} ORDER BY deliveryid
     </select>
 
     <!--배송지 저장-->
@@ -43,7 +43,7 @@
                           ,deliverypostcode=#{deliverypostcode}
                           ,deliverydetailaddr=#{deliverydetailaddr}
                           ,customerphone=#{customerphone}
-        WHERE userid = #{userid}
+        WHERE deliveryid = #{deliveryid}
     </update>
 
     <!--배송지삭제-->

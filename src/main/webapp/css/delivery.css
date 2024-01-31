@@ -65,7 +65,7 @@ label {
 }
 
 /* 버튼 스타일 */
-#deliverySave, #deliveryRemove {
+#deliverySave, #deliveryRemove, #deliveryModifyButton {
     padding: 10px;
     background-color: #e3ccc3;
     color: white;
@@ -78,7 +78,7 @@ label {
 
 
 /* 버튼 호버 효과 스타일 */
-#deliverySave:hover, #deliveryRemove:hover {
+#deliverySave:hover, #deliveryRemove:hover, #deliveryModifyButton:hover {
     background-color: #d0b7ad;
 }
 

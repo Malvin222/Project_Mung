@@ -33,43 +33,31 @@
 </div>
 
 <div class="addr-container">
+    <!-- 배송지 버튼 목록 -->
+    <div class="delivery-buttons">
+        <c:forEach var="delivery" items="${deliveryList}">
+            <button type="button" class="delivery-button" onclick="showDeliveryInfo('${delivery.deliveryname}')">${delivery.deliveryname}</button>
+        </c:forEach>
+        <button type="button" id="deliveryManage">배송지 관리</button>
+    </div>
+
+
+    <!-- 배송지 정보 -->
+    <div class="delivery-info" id="deliveryInfo">
+        <!-- 각 배송지 정보 -->
+        <c:forEach var="delivery" items="${deliveryList}">
+            <div class="delivery-details" id="${delivery.deliveryname}Info">
+                <span>${delivery.customername}</span><br>
+                <span>${delivery.customerphone}</span><br>
+                <span>${delivery.deliverypostcode}</span><br>
+                <span>${delivery.deliveryaddress}</span>
+                <span>${delivery.deliverydetailaddr}</span>
+                ( <span>${delivery.deliverypostcode}</span> )
+            </div>
+        </c:forEach>
+    </div>
+    <div>
     <table>
-        <tr>
-            <td><button type="button" id="deliveryManage">배송지 관리</button></td>
-        <tr>
-            <td>
-                <!-- 각 배송지에 대한 루프 -->
-                <c:forEach var="delivery" items="${deliveryList}">
-                    <input type="hidden" id="deliveryid" name="deliveryid" value="${delivery.deliveryid}">
-                    <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->
-                    <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"
-                           style="width: 10px; height: 15px;"
-                           onclick="setDeliveryInfo('${delivery.deliveryname}'
-                                   , '${delivery.customerphone}'
-                                   , '${delivery.deliverypostcode}'
-                                   , '${delivery.deliveryaddress}'
-                                   , '${delivery.deliverydetailaddr}'
-                                   , '${delivery.deliveryid}')"
-                           <c:if test="${delivery.deliveryname eq '기본배송지'}">checked</c:if>>
-                    <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>
-                </c:forEach>
-            </td>
-        </tr>
-
-
-        <tr>
-            <td><input type="text" name="customerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">
-            </td>
-        </tr>
-        <tr>
-            <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>
-        </tr>
-        <tr>
-            <td><input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소"></td>
-        </tr>
         <tr>
             <td>
                 <select id="deliveryoption" name="deliveryoption">
@@ -86,7 +74,100 @@
             </td>
         </tr>
     </table>
+    </div>
+
+
 </div>
+
+<script>
+    // 처음에는 첫 번째 배송지 정보만 표시되도록 설정
+    window.onload = function() {
+        var allDeliveryInfo = document.querySelectorAll('.delivery-details');
+        allDeliveryInfo.forEach(function(info, index) {
+            if (index === 0) {
+                info.style.display = 'block';
+            } else {
+                info.style.display = 'none';
+            }
+        });
+    };
+
+
+    // 배송지 정보 표시 함수
+    function showDeliveryInfo(deliveryName) {
+        // 모든 배송지 정보 숨기기
+        var allDeliveryInfo = document.querySelectorAll('.delivery-details');
+        allDeliveryInfo.forEach(function(info) {
+            info.style.display = 'none';
+        });
+        // 선택한 배송지 정보 표시
+        var selectedDeliveryInfo = document.getElementById(deliveryName + 'Info');
+        if (selectedDeliveryInfo) {
+            selectedDeliveryInfo.style.display = 'block';
+        }
+    }
+</script>
+
+
+
+
+
+<%--<div class="addr-container">--%>
+<%--    <table>--%>
+
+<%--        <tr>--%>
+<%--            <td><button type="button" id="deliveryManage">배송지 관리</button></td>--%>
+<%--        <tr>--%>
+<%--            <td>--%>
+<%--                <!-- 각 배송지에 대한 루프 -->--%>
+<%--                <c:forEach var="delivery" items="${deliveryList}">--%>
+<%--                    <input type="hidden" id="deliveryid" name="deliveryid" value="${delivery.deliveryid}">--%>
+<%--                    <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->--%>
+<%--                    <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"--%>
+<%--                           style="width: 10px; height: 15px;"--%>
+<%--                           onclick="setDeliveryInfo('${delivery.deliveryname}'--%>
+<%--                                   , '${delivery.customerphone}'--%>
+<%--                                   , '${delivery.deliverypostcode}'--%>
+<%--                                   , '${delivery.deliveryaddress}'--%>
+<%--                                   , '${delivery.deliverydetailaddr}'--%>
+<%--                                   , '${delivery.deliveryid}')"--%>
+<%--                           <c:if test="${delivery.deliveryname eq '기본배송지'}">checked</c:if>>--%>
+<%--                    <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>--%>
+<%--                </c:forEach>--%>
+<%--            </td>--%>
+<%--        </tr>--%>
+
+
+<%--        <tr>--%>
+<%--            <td><input type="text" name="customerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">--%>
+<%--            </td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td><input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소"></td>--%>
+<%--        </tr>--%>
+<%--        <tr>--%>
+<%--            <td>--%>
+<%--                <select id="deliveryoption" name="deliveryoption">--%>
+<%--                    <option value="door">부재 시 문 앞에 놓아주세요.</option>--%>
+<%--                    <option value="call">배송 전 연락바랍니다.</option>--%>
+<%--                    <option value="security">부재 시 경비실에 맡겨주세요.</option>--%>
+<%--                    <option value="custom">직접 입력</option>--%>
+<%--                </select>--%>
+<%--            </td>--%>
+<%--        </tr>--%>
+<%--        <tr id="custom-input" style="display:none;">--%>
+<%--            <td>--%>
+<%--                <input type="text" id="custom-text" name="custom-text" placeholder="배송메모를 입력해주세요.">--%>
+<%--            </td>--%>
+<%--        </tr>--%>
+<%--    </table>--%>
+<%--</div>--%>
 
 <div class="h2-container">
     <h2>주문상품</h2>

@@ -284,7 +284,7 @@ button:hover {
 
 
 /* 주문 페이지 */
-.items-container, .addr-container {
+.items-container{
     display: flex;
     flex-direction: column;
     width: 70%;
@@ -316,16 +316,38 @@ button:hover {
     font-size: 28px;
 }
 
-.addr-container button {
-    float: right; /* 오른쪽으로 띄우기 */
+.addr-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto; /* 가운데 정렬을 위해 사용 */
+    background-color: white;
+    padding: 20px;
+
 }
 
-.addr-container select, .addr-container input {
+.delivery-button {
+    border: 1px solid #4b4a4a;
+    background-color: transparent; /* 배경색 투명으로 설정 */
+    padding: 10px;
+    color: #4b4a4a;
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 10%;
+    height: 5%;
+}
+
+#deliveryManage {
+    float: right;
+}
+
+.addr-container select, input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 300px;
     box-sizing: border-box;
+    margin-top:10px;
 }
 
 .total-price-container {
