@@ -19,6 +19,8 @@
     <c:if test="${not empty sessionScope.user}">
         <div><a href="/dog/cart">장바구니</a></div>
         <div>|</div>
+        <div><a href="/dog/orderList">주문조회</a></div>
+        <div>|</div>
         <div>${sessionScope.user.userid}</div>
         <div>|</div>
         <div><a href="/user/logout">로그아웃</a></div>

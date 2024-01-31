@@ -60,6 +60,16 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public List<Order> getUserOrders(String userid) {
+        return orderMapper.getUserOrders(userid);
+    }
+
+    @Override
+    public Order getOrderById(String orderId) {
+        return orderMapper.getOrderById(orderId);
+    }
+
+    @Override
     public Boolean saveOrder(Order order) {
         return orderMapper.saveOrder(order);
     }

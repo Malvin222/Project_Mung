@@ -23,4 +23,8 @@ public interface OrderService {
     Boolean updateCart(List<Integer> cartid, String orderid);
 
     Boolean modifyDelivery(Delivery delivery);
+
+    List<Order> getUserOrders(String userid);
+
+    Order getOrderById(String orderId);
 }

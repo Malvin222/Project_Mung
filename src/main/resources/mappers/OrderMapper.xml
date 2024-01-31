@@ -74,12 +74,35 @@
         </foreach>
     </update>
 
-    <!--
-    <update id="updateCart" parameterType="java.util.List">
-        <foreach collection="list" item="cartid" separator=";">
-            UPDATE cart SET orderdate = NOW() WHERE cartid = #{cartid}
-        </foreach>
-    </update>
--->
 
+    <select id="getUserOrders" parameterType="string" resultType="com.project_mung.domain.Order">
+        SELECT orderid
+             , MAX(userid) as userid
+             , MAX(paymentmethod) as paymentmethod
+             , MAX(deliveryid) as deliveryid
+             , MAX(orderdate) as orderdate
+             , MAX(dogfoodid) as dogfoodid
+             , COUNT(*) as countOrder
+             , MAX(totalprice) as total_price
+             , MAX(dogfoodname) as dogfoodname
+        FROM (
+                 SELECT o.orderid
+                      , o.userid
+                      , o.paymentmethod
+                      , o.deliveryid
+                      , o.orderdate
+                      , c.dogfoodid
+                      , (SELECT SUM(totalprice) FROM cart WHERE userid = #{userid} AND orderid = o.orderid) as totalprice
+                      , c.dogfoodname
+                 FROM `order` o
+                          JOIN cart c ON o.orderid = c.orderid
+                 WHERE o.userid = #{userid}
+             ) t
+        GROUP BY orderid;
+
+    </select>
+
+    <select id="getOrderById">
+
+    </select>
 </mapper>

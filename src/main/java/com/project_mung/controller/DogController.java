@@ -1,9 +1,6 @@
     package com.project_mung.controller;
 
-    import com.project_mung.domain.Cart;
-    import com.project_mung.domain.Delivery;
-    import com.project_mung.domain.DogFood;
-    import com.project_mung.domain.User;
+    import com.project_mung.domain.*;
     import com.project_mung.service.CartService;
     import com.project_mung.service.DogFoodService;
     import com.project_mung.service.OrderService;
@@ -225,6 +222,24 @@
             session.setAttribute("selectedItems", orderItems);
 
             return "success";
+        }
+
+        @RequestMapping("/dog/orderList")
+        public String getUserOrderList(HttpSession session, Model model) {
+
+            User user = (User) session.getAttribute("user");
+            String userid = user.getUserid();
+
+            List<Order> userOrderList = orderService.getUserOrders(userid);
+            model.addAttribute("userOrderList", userOrderList);
+            return "dog/orderList";
+        }
+
+        @RequestMapping("/dog/orderDetail/{orderId}")
+        public String getOrderDetail(@PathVariable String orderId, Model model) {
+            Order order = orderService.getOrderById(orderId);
+            model.addAttribute("order", order);
+            return "dog/orderDetail";
         }
 
 

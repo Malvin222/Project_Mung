@@ -16,4 +16,9 @@ public class Order {
     private int deliveryid;
     private String orderdate;    // 주문날짜
     private int cartid;
+    //cart
+    private int dogfoodid;
+    private String dogfoodname;
+    private int totalprice;
+    private int countOrder;
 }

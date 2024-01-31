@@ -115,13 +115,8 @@ public class OrderController {
 
         //선택 주문목록 받아오기
         List<Integer> cartid = (List<Integer>) session.getAttribute("selectedItems");
-        log.info("cartid:::::::::::::::::::::");
-        log.info(cartid);
         String orderid = order.getUserid()+" "+order.getOrderid();
         order.setOrderid(orderid);
-
-        log.info("orderid@@@@@@@@@@@@@@@@@@@@@@@");
-        log.info(orderid);
 
         try {
 
