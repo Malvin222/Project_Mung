@@ -112,18 +112,36 @@ public class OrderController {
     @PostMapping("/order/saveOrder")
     @ResponseBody
     public String saveOrder(@RequestBody Order order,HttpSession session){
+
         //선택 주문목록 받아오기
         List<Integer> cartid = (List<Integer>) session.getAttribute("selectedItems");
+        log.info("cartid:::::::::::::::::::::");
+        log.info(cartid);
+        String orderid = order.getUserid()+" "+order.getOrderid();
+        order.setOrderid(orderid);
 
-        Boolean saveOrder = orderService.saveOrder(order);
+        log.info("orderid@@@@@@@@@@@@@@@@@@@@@@@");
+        log.info(orderid);
 
-        if(saveOrder){
-            Boolean updateCart = orderService.updateCart(cartid);
-            if(updateCart){
-                return "success";
+        try {
+
+            Boolean saveOrder = orderService.saveOrder(order);
+
+            if (saveOrder) {
+                Boolean updateCart = orderService.updateCart(cartid, orderid);
+                if (updateCart) {
+                    log.info("Order and cart updated successfully.");
+                    return "success";
+                } else {
+                    log.error("Failed to update cart.");
+                }
+            } else {
+                log.error("Failed to save order.");
             }
-
+        } catch (Exception e) {
+            log.error("Exception occurred: " + e.getMessage(), e);
         }
+
         return "fail";
     }
 

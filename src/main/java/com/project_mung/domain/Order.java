@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-    private int    orderid;             // 주문아이디
+    private String orderid;             // 주문아이디
     private String userid;              // 유저아이디
     private String paymentmethod;       // 결제방법
     private int deliveryid;

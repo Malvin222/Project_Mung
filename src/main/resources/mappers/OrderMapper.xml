@@ -52,25 +52,28 @@
     </delete>
 
     <!--주문정보 저장-->
-    <insert id="saveOrder" useGeneratedKeys="true" keyProperty="orderid">
+    <insert id="saveOrder">
         INSERT INTO `order` (userid,
-                          paymentmethod,
-                          deliveryid,
-                          orderdate)
+                             paymentmethod,
+                             deliveryid,
+                             orderdate,
+                             orderid)
         VALUES (#{userid}
-                ,#{paymentmethod}
-                ,#{deliveryid}
-                ,NOW()
+               ,#{paymentmethod}
+               ,#{deliveryid}
+               ,NOW()
+               ,#{orderid}
                )
     </insert>
 
 
     <update id="updateCart" parameterType="java.util.List">
-        UPDATE cart SET orderdate = NOW() WHERE cartid IN
-        <foreach collection="list" item="cartid" open="(" separator="," close=")">
+        UPDATE cart SET orderid = #{orderid} WHERE cartid IN
+        <foreach collection="cartid" item="cartid" open="(" separator="," close=")">
             #{cartid}
         </foreach>
     </update>
+
     <!--
     <update id="updateCart" parameterType="java.util.List">
         <foreach collection="list" item="cartid" separator=";">

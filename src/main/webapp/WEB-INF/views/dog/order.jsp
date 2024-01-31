@@ -345,7 +345,7 @@
                 if (rsp.success) { // 결제 성공 시
                     console.log(rsp);
                     // 결제 성공 처리 로직 추가
-                        saveOrder(userid, '카카오페이', deliveryid, orderdate, rsp.merchant_uid);
+                        saveOrder(userid, paymentmethod, deliveryid, orderdate, merchant_uid);
 
                     alert('결제가 완료되었습니다.');
                 } else { // 결제 실패 시
@@ -369,7 +369,7 @@
                 paymentmethod: paymentmethod,
                 deliveryid: deliveryid,
                 orderdate :orderdate,
-                merchantuid : merchantuid,
+                orderid : merchantuid,
             }),
             success: function (response) {
                 if (response === 'success') {
