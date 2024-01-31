@@ -66,14 +66,12 @@
                )
     </insert>
 
-
     <update id="updateCart" parameterType="java.util.List">
         UPDATE cart SET orderid = #{orderid} WHERE cartid IN
         <foreach collection="cartid" item="cartid" open="(" separator="," close=")">
             #{cartid}
         </foreach>
     </update>
-
 
     <select id="getUserOrders" parameterType="string" resultType="com.project_mung.domain.Order">
         SELECT orderid
@@ -102,7 +100,11 @@
 
     </select>
 
-    <select id="getOrderById">
-
+    <select id="getOrderById" resultType="com.project_mung.domain.Cart">
+        SELECT o.*, c.*
+        FROM `order` o
+                 JOIN cart c ON o.orderid = c.orderid
+        WHERE o.orderid = #{orderid}
     </select>
+
 </mapper>

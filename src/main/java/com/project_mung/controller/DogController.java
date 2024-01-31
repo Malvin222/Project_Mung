@@ -237,8 +237,8 @@
 
         @RequestMapping("/dog/orderDetail/{orderId}")
         public String getOrderDetail(@PathVariable String orderId, Model model) {
-            Order order = orderService.getOrderById(orderId);
-            model.addAttribute("order", order);
+            List<Cart> cart = orderService.getOrderById(orderId);
+            model.addAttribute("cart", cart);
             return "dog/orderDetail";
         }
 

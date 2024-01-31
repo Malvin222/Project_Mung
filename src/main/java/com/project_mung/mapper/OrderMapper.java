@@ -28,5 +28,5 @@ public interface OrderMapper {
 
     List<Order> getUserOrders(String userid);
 
-    Order getOrderById(String orderId);
+    List<Cart> getOrderById(String orderId);
 }
