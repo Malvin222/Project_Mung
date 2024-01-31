@@ -3,8 +3,6 @@ package com.project_mung.service;
 import com.project_mung.domain.User;
 import com.project_mung.domain.UserRole;
 
-import java.util.HashMap;
-
 public interface UserService {
 
     void insertUser(User user);
@@ -15,7 +13,7 @@ public interface UserService {
 
     void insertUserDelivery(User user);
 
+    void modifyUser(User user);
 
-
-
+    User getUserById(String userid);
 }

@@ -48,6 +48,30 @@ public class UserController {
         }
     }
 
+    @GetMapping("/modify")
+    public String usermodify() {
+
+        return "user/modify";
+    }
+    @PostMapping("/modifySave")
+    public String modifySave(@ModelAttribute User user,Model model,HttpSession session){
+        try {
+            userService.modifyUser(user);
+
+            User updatedUser = userService.getUserById(user.getUserid());
+            session.setAttribute("user", updatedUser);
+            model.addAttribute("message", "회원 정보가 수정되었습니다.");
+            return "redirect:/";
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("error", "데이터 무결성 오류가 발생했습니다.");
+            return "user/modify";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "회원 정보 수정중 오류가 발생했습니다.");
+            return "user/modify";
+        }
+    }
+
     @GetMapping("/login")
     public String getLogin() {
 

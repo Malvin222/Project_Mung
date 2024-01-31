@@ -58,4 +58,16 @@
                )
     </insert>
 
+    <update id="modifyUser" >
+        UPDATE user SET userphone = #{userphone}
+                        ,userpostcode = #{userpostcode}
+                        ,useraddress = #{useraddress}
+                        ,userdetailaddress = #{userdetailaddress}
+                        ,useremail =#{useremail}
+                        WHERE userid = #{userid}
+    </update>
+
+    <select id="getUserById">
+        SELECT * FROM user WHERE userid =#{userid}
+    </select>
 </mapper>

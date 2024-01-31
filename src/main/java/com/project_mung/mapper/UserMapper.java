@@ -15,4 +15,8 @@ public interface UserMapper {
     void insertUserRole(UserRole userRole);
 
     void insertUserDelivery(User user);
+
+    void modifyUser(User user);
+
+    User getUserById(String userid);
 }

@@ -55,6 +55,7 @@
         </c:when>
         <c:otherwise>
             <a href="/user/logout">로그아웃</a>
+            <a href="/user/modify">회원정보수정</a>
         </c:otherwise>
     </c:choose>
 </div>
