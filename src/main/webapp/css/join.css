@@ -1,0 +1,69 @@
+body {
+    background: #f1eee9;
+    font-family: "Noto Sans KR ExtraLight";
+    color: #4b4a4a;
+}
+
+.main-logo {
+    margin-top: 50px;
+    align-items: center;
+
+}
+
+/* 폼 스타일 */
+form {
+    background: #fff; /* 폼 배경색 설정 */
+    width: 30%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+    margin: 20px auto; /* 수평 가운데 정렬 */
+}
+
+/* 레이블 스타일 */
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+/* 입력 필드 스타일 */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* 버튼 호버 효과 */
+button:hover {
+    background-color: #45a049;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Footer 스타일 */
+footer {
+    text-align: center;
+    bottom: 0;
+    width: 90%;
+    margin: auto;
+    z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+

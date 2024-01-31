@@ -13,6 +13,23 @@
 </head>
 
 <body>
+
+<%-- 로그인 --%>
+<div class="login-container">
+    <c:if test="${not empty sessionScope.user}">
+        <div><a href="/dog/cart">장바구니</a></div>
+        <div>|</div>
+        <div>${sessionScope.user.userid}</div>
+        <div>|</div>
+        <div><a href="/user/logout">로그아웃</a></div>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+        <script>
+            window.location.href = "/user/login";
+        </script>
+    </c:if>
+</div>
+
 <!-- 메인 로고 -->
 <div class="main-logo" align="center">
     <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
@@ -20,16 +37,11 @@
 
 
 <!-- 장바구니 로고 -->
-<div class="cart-container-search" align="right">
-    <a href="/dog/cart"><img src="/imgs/cart-logo.png" width="50"></a>
-</div>
+<%--<div class="cart-container-search" align="right">--%>
+<%--    <a href="/dog/cart"><img src="/imgs/cart-logo.png" width="50"></a>--%>
+<%--</div>--%>
 
-<div class="login-container" style="text-align:right; margin-right:50px;">
-    <c:if test="${not empty sessionScope.user}">
-        ${sessionScope.user.userid}
-        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
-    </c:if>
-</div>
+
 
 <!-- 체크 그룹 컨테이너 -->
 <div class="checkbox-group-container">

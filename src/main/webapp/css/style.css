@@ -8,13 +8,33 @@ body {
 
 .main-logo {
     margin-top: 50px;
+    margin-bottom: 40px;
     align-items: center;
-
 }
 
 a {
     text-decoration: none;
     color: inherit;
+}
+
+/* 로그인된 아이디 */
+.login-container {
+    text-align: right;
+    font-size: 18px;
+    background: #d1d0c6;
+    padding: 10px;
+
+}
+
+
+.login-container a {
+    text-decoration: none;
+}
+
+.login-container div {
+    display: inline-block; /* 각 요소를 가로로 정렬합니다. */
+    margin-right: 8px; /* 요소 사이의 간격을 조정합니다. */
+    color: #ffffff;
 }
 
 .search-container {
@@ -132,7 +152,6 @@ footer {
     z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
     margin-top: 30px;
     margin-bottom: 20px;
-
 }
 
 /* 페이징 스타일 */
@@ -169,6 +188,8 @@ footer {
     margin-right: 50px;
     margin-bottom: 20px;
 }
+
+
 
 button {
     padding: 10px;
@@ -231,15 +252,15 @@ button:hover {
 
 /* 장바구니 총 금액 스타일링 */
 .total-container .total-price {
-    font-size: 24px;
+    font-size: 26px;
     color: #4b4a4a;
     margin-bottom: 20px; /* 아래 여백을 조절합니다. */
-    margin-right: 20px;
+    margin-right: 40px;
     text-align: right;
 }
 
 /* 장바구니 주문 버튼 스타일링 */
-.order-button {
+.order-container .order-button {
     background-color: #e3ccc3;
     color: white;
     border: none;
@@ -247,12 +268,14 @@ button:hover {
     cursor: pointer;
     padding: 15px 20px;
     font-size: 18px;
-    right: 20px;
+    margin-right: 50px;
+    margin-bottom: 50px;
 }
 
-.cart-container .order-button:hover {
+.order-container .order-button:hover {
     background-color: #d0b7ad;
 }
+
 
 /* 장바구니 삭제 버튼 스타일링 */
 .cart-container .remove-button {
@@ -267,6 +290,45 @@ button:hover {
 .cart-container .remove-button:hover {
     background-color: #d0b7ad;
 }
+
+/* 체크박스 스타일 수정 */
+input[type="checkbox"] {
+    /* 체크박스의 기본 스타일 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* 체크박스의 크기 및 여백 설정 */
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    /* 체크박스의 배경색 및 테두리 설정 */
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    /* 커서 모양 설정 */
+    cursor: pointer;
+}
+
+/* 체크된 상태의 체크박스 스타일 */
+input[type="checkbox"]:checked {
+    background-color: #e3ccc3; /* 선택한 색상으로 변경 */
+    border-color: #e3ccc3;
+}
+
+/* 체크박스 내부 마크(체크) 스타일 */
+input[type="checkbox"]:checked::before {
+    content: "\2713"; /* 체크 마크(✓) 표시 */
+    font-size: 14px; /* 텍스트 크기 */
+    color: #fff; /* 텍스트 색상 */
+    display: block;
+    text-align: center;
+    line-height: 20px; /* 체크박스 세로 중앙 정렬 */
+}
+
+
+
+
 
 /* 선택 삭제 버튼 */
 .remove-all-button {
@@ -341,7 +403,16 @@ button:hover {
     float: right;
 }
 
-.addr-container select, input {
+.addr-container select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    box-sizing: border-box;
+    margin-top:10px;
+}
+
+#custom-text {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

@@ -53,6 +53,7 @@ public class UserController {
 
         return "user/modify";
     }
+
     @PostMapping("/modifySave")
     public String modifySave(@ModelAttribute User user,Model model,HttpSession session){
         try {

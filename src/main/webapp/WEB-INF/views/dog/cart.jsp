@@ -9,17 +9,30 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
+
+<%-- 로그인 --%>
+<div class="login-container">
+    <c:if test="${not empty sessionScope.user}">
+        <div><a href="/dog/dogFoodSearch">홈</a></div>
+        <div>|</div>
+        <div>${sessionScope.user.userid}</div>
+        <div>|</div>
+        <div><a href="/user/logout">로그아웃</a></div>
+    </c:if>
+    <c:if test="${empty sessionScope.user}">
+        <script>
+            window.location.href = "/user/login";
+        </script>
+    </c:if>
+</div>
+
 <!-- 메인 로고 -->
 <div class="main-logo" align="center">
     <a href="/dog/dogFoodSearch"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
 
-<div class="login-container" style="text-align:right; margin-right:50px;">
-    <c:if test="${not empty sessionScope.user}">
-        ${sessionScope.user.userid}
-        <!-- 기타 사용자 정보를 필요에 따라 출력 -->
-    </c:if>
-</div>
+
+
 
 <div class="title-container">
     <h2>장바구니</h2>
@@ -75,11 +88,18 @@
 
 </div>
 
-<div align="right">
-    <table class="total-container" >
-        <tr><td><h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2></td></tr>
-        <tr><td><button class="order-button" onclick="placeOrder()">주문하기</button></td></tr>
-    </table>
+<%--<div align="right">--%>
+<%--    <table class="total-container" >--%>
+<%--        <tr><td><h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2></td></tr>--%>
+<%--        <tr><td><button class="order-button" onclick="placeOrder()" style="text-align:center">주문하기</button></td></tr>--%>
+<%--    </table>--%>
+<%--</div>--%>
+
+<div class="total-container" align="right">
+    <h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2>
+</div>
+<div class="order-container" align="right">
+    <button class="order-button" onclick="placeOrder()" style="text-align:center">주문하기</button>
 </div>
 
 <!-- Footer -->
