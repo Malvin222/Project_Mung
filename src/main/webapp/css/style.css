@@ -20,12 +20,17 @@ a {
 /* 로그인된 아이디 */
 .login-container {
     text-align: right;
-    font-size: 18px;
-    background: #d1d0c6;
+    font-size: 16px;
     padding: 10px;
-
+    font-family: "Noto Sans KR", sans-serif;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
+.login-container img {
+    margin-top: 15px;
+    vertical-align: middle;
+}
 
 .login-container a {
     text-decoration: none;
@@ -33,8 +38,12 @@ a {
 
 .login-container div {
     display: inline-block; /* 각 요소를 가로로 정렬합니다. */
-    margin-right: 8px; /* 요소 사이의 간격을 조정합니다. */
-    color: #ffffff;
+    margin-right: 10px; /* 요소 사이의 간격을 조정합니다. */
+    color: #4b4a4a;
+}
+
+#logout {
+    margin-right: 20px;
 }
 
 .search-container {
@@ -168,7 +177,7 @@ footer {
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color 0.3s;
-    border: 1px solid #ddd;
+    border: 0px solid #ddd;
     margin: 0 4px;
 }
 
@@ -176,6 +185,7 @@ footer {
 .pagination a.active {
     background-color: #e3ccc3;
     color: white;
+    border-radius: 5px;
 }
 
 .pagination a:hover:not(.active) {
@@ -220,13 +230,12 @@ button:hover {
     width: calc(100% - 40px); /* 전체 너비에서 좌우 여백(20px * 2)을 뺍니다. */
     border-collapse: collapse;
     background-color: white;
-    border-radius: 20px; /* 동그라미 테두리를 추가합니다. */
+    /*border-radius: 20px; !* 동그라미 테두리를 추가합니다. *!*/
     overflow: hidden; /* 테두리를 벗어난 부분을 숨깁니다. */
     margin: 20px; /* 상하 여백을 조절합니다. */
 }
 
 .cart-table th, .cart-table td {
-    border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
 }
@@ -236,6 +245,12 @@ button:hover {
     color: #4b4a4a;
     font-size: 18px;
 }
+
+.cart-table td {
+    border-bottom: 1px solid #ddd;
+}
+
+
 
 /* 장바구니 수량 입력 필드 스타일링 */
 .quantity-input {
@@ -428,7 +443,7 @@ input[type="checkbox"]:checked::before {
     margin: 0 auto; /* 가운데 정렬을 위해 사용 */
     background-color: white;
     text-align: center; /* 아이템들을 가운데 정렬하기 위한 스타일 추가 */
-    padding: 20px;
+    padding: 0px 20px 10px 20px;
 }
 
 .total-price-container td {

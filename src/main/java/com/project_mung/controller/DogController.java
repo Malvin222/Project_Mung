@@ -13,7 +13,6 @@
 
     import java.util.ArrayList;
     import java.util.Arrays;
-    import java.util.Enumeration;
     import java.util.List;
     import java.util.stream.Collectors;
 
@@ -236,7 +235,14 @@
         }
 
         @RequestMapping("/dog/orderDetail/{orderId}")
-        public String getOrderDetail(@PathVariable String orderId, Model model) {
+        public String getOrderDetail(@PathVariable String orderId, Model model, HttpSession session) {
+
+            User user = (User) session.getAttribute("user");
+            String userid = user.getUserid();
+
+            List<Order> userOrderList = orderService.getUserOrders(userid);
+            model.addAttribute("userOrderList", userOrderList);
+
             List<Cart> cart = orderService.getOrderById(orderId);
             model.addAttribute("cart", cart);
             return "dog/orderDetail";

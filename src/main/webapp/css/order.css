@@ -1,0 +1,194 @@
+/* order */
+body {
+    font-family: "Noto Sans KR ExtraLight", sans-serif;
+    background: #f1eee9;
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    text-align: center;
+}
+
+.order-info div {
+    margin-top: 15px;
+}
+
+.order-info {
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.order-info tr {
+    border-bottom: 1px solid #ccc;
+}
+
+
+.order-info td {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.order-status {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.order-date {
+    font-size: 16px;
+    color: #666;
+}
+
+.order-item {
+    font-size: 18px;
+    color: #666;
+}
+
+.order-price {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+button {
+    display: none;
+}
+
+.orderDetail {
+    display: flex;
+    color: #4b4a4a;
+    border: none;
+    background-color: #fff;
+    margin-top: 15px;
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+}
+
+
+/* 로그인된 아이디 */
+.login-container {
+    text-align: right;
+    font-size: 16px;
+    padding: 10px;
+    font-family: "Noto Sans KR", sans-serif;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.login-container img {
+    margin-top: 15px;
+    vertical-align: middle;
+}
+
+.login-container a {
+    text-decoration: none;
+}
+
+.login-container div {
+    display: inline-block; /* 각 요소를 가로로 정렬합니다. */
+    margin-right: 10px; /* 요소 사이의 간격을 조정합니다. */
+    color: #4b4a4a;
+}
+
+#logout {
+    margin-right: 20px;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* Footer 스타일 */
+footer {
+    text-align: center;
+    bottom: 0;
+    width: 90%;
+    margin: auto;
+    z-index: 0; /* Footer가 하위로 내려가도록 z-index 추가 */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.main-logo {
+    margin-top: 50px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.orderList-h2-container h2{
+    width: 80%;
+    margin: auto; /* 가운데 정렬을 위해 사용 */
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+
+/*------------------ orderDetail --------------------------*/
+
+
+.items-container {
+    border-collapse: collapse; /* 셀 사이의 경계를 합칩니다. */
+    margin-top: 30px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    width: 80%;
+}
+
+.items-container tr {
+    background-color: #fff;
+}
+
+.items-container td {
+    padding: 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+
+}
+
+.items-container th {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ceccc0;
+}
+
+.total-price {
+    margin-right: 30px;
+}
+
+.h2-container h2 {
+    width: 80%;
+    margin: auto; /* 가운데 정렬을 위해 사용 */
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+
+
+.order-id {
+    border-collapse: separate; /* 테이블의 경계를 분리하여 간격을 적용합니다. */
+    border-spacing: 0 5px; /* 수직 간격은 10px, 수평 간격은 0으로 설정합니다. */
+    margin-top: 5px; /* 위쪽 간격 */
+    margin-bottom: 5px; /* 아래쪽 간격 */
+    margin-left: auto; /* 왼쪽 간격을 자동으로 설정 */
+    margin-right: auto; /* 오른쪽 간격을 자동으로 설정 */
+    padding: 30px;
+    width: 80%;
+    background-color: #fff;
+    font-size: 18px;
+}
+
+.order-id span {
+    font-weight: bold;
+    font-size: 16px;
+}
+

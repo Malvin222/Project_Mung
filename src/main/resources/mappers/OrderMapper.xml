@@ -96,7 +96,8 @@
                           JOIN cart c ON o.orderid = c.orderid
                  WHERE o.userid = #{userid}
              ) t
-        GROUP BY orderid;
+        GROUP BY orderid
+        ORDER BY orderdate DESC;
 
     </select>
 

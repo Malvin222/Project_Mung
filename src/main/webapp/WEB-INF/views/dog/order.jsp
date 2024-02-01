@@ -19,12 +19,16 @@
 
 <%-- 로그인 --%>
 <div class="login-container">
+    <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
+    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+</div>
+
+<div class="login-container">
     <c:if test="${not empty sessionScope.user}">
-        <div><a href="/dog/dogFoodSearch">홈</a></div>
-        <div>|</div>
         <div>${sessionScope.user.userid}</div>
         <div>|</div>
-        <div><a href="/user/logout">로그아웃</a></div>
+        <div id="logout"><a href="/user/logout">로그아웃</a></div>
     </c:if>
     <c:if test="${empty sessionScope.user}">
         <script>
@@ -375,6 +379,8 @@
                 if (response === 'success') {
                     alert("저장성공")
                     // 여기에 필요한 추가 로직을 수행하세요.
+                    window.location.href = "/dog/orderList";
+
                 } else {
                     alert("저장실패"+response)
                     console.log('결제 정보 저장 실패');

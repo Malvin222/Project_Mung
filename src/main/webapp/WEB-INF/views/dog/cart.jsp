@@ -12,14 +12,16 @@
 
 <%-- 로그인 --%>
 <div class="login-container">
+    <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
+    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+</div>
+
+<div class="login-container">
     <c:if test="${not empty sessionScope.user}">
-        <div><a href="/dog/dogFoodSearch">홈</a></div>
-        <div>|</div>
-        <div><a href="/dog/orderList">주문조회</a></div>
-        <div>|</div>
         <div>${sessionScope.user.userid}</div>
         <div>|</div>
-        <div><a href="/user/logout">로그아웃</a></div>
+        <div id="logout"><a href="/user/logout">로그아웃</a></div>
     </c:if>
     <c:if test="${empty sessionScope.user}">
         <script>
@@ -32,8 +34,6 @@
 <div class="main-logo" align="center">
     <a href="/dog/dogFoodSearch"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
-
-
 
 
 <div class="title-container">
