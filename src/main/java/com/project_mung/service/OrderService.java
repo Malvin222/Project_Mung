@@ -27,4 +27,9 @@ public interface OrderService {
     List<Order> getUserOrders(String userid);
 
     List<Cart> getOrderById(String orderId);
+
+    List<Order> getUserOrders(String userid, int startIndex, int pageSize);
+
+    int getTotalUserOrders(String userid);
+
 }

@@ -54,13 +54,55 @@ public class UserController {
         return "user/modify";
     }
 
+//    @PostMapping("/modifySave")
+//    public String modifySave(@ModelAttribute User user,Model model,HttpSession session){
+//        try {
+//            userService.modifyUser(user);
+//
+//            User updatedUser = userService.getUserById(user.getUserid());
+//            session.setAttribute("user", updatedUser);
+//            model.addAttribute("message", "회원 정보가 수정되었습니다.");
+//            return "redirect:/";
+//        } catch (DataIntegrityViolationException e) {
+//            model.addAttribute("error", "데이터 무결성 오류가 발생했습니다.");
+//            return "user/modify";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            model.addAttribute("error", "회원 정보 수정중 오류가 발생했습니다.");
+//            return "user/modify";
+//        }
+//    }
+
     @PostMapping("/modifySave")
-    public String modifySave(@ModelAttribute User user,Model model,HttpSession session){
+    public String modifySave(@ModelAttribute User user, Model model, HttpSession session,
+                             @RequestParam("currentPassword") String currentPassword,
+                             @RequestParam("newPassword") String newPassword,
+                             @RequestParam("confirmPassword") String confirmPassword) {
+        // 세션에서 현재 사용자 정보를 가져옵니다.
+        User currentUser = (User) session.getAttribute("user");
+
+        // 사용자가 입력한 현재 비밀번호가 올바른지 확인합니다.
+        if (!passwordEncoder.matches(currentPassword, currentUser.getUserpass())) {
+            model.addAttribute("error", "현재 비밀번호가 일치하지 않습니다.");
+            return "user/modify";
+        }
+
+        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인합니다.
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "새로운 비밀번호가 일치하지 않습니다.");
+            return "user/modify";
+        }
+
         try {
+            // 새로운 비밀번호를 암호화하여 사용자 정보에 설정합니다.
+            user.setUserpass(passwordEncoder.encode(newPassword));
+            // UserService를 통해 사용자 정보를 수정합니다.
             userService.modifyUser(user);
 
+            // 수정된 사용자 정보를 세션에 설정합니다.
             User updatedUser = userService.getUserById(user.getUserid());
             session.setAttribute("user", updatedUser);
+
             model.addAttribute("message", "회원 정보가 수정되었습니다.");
             return "redirect:/";
         } catch (DataIntegrityViolationException e) {
@@ -68,10 +110,11 @@ public class UserController {
             return "user/modify";
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("error", "회원 정보 수정중 오류가 발생했습니다.");
+            model.addAttribute("error", "회원 정보 수정 중 오류가 발생했습니다.");
             return "user/modify";
         }
     }
+
 
     @GetMapping("/login")
     public String getLogin() {

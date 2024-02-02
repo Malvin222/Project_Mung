@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
         // userMapper.insertUserRole(userRole);
 
-
     }
     @Override
     public User getLoginInfo(String userid, String userpass) {
@@ -54,16 +53,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUserDelivery(User user) {
+
         userMapper.insertUserDelivery(user);
     }
 
     @Override
     public void modifyUser(User user) {
+
         userMapper.modifyUser(user);
     }
 
     @Override
     public User getUserById(String userid) {
+
         return userMapper.getUserById(userid);
     }
 }

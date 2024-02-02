@@ -64,6 +64,7 @@
                         ,useraddress = #{useraddress}
                         ,userdetailaddress = #{userdetailaddress}
                         ,useremail =#{useremail}
+                        ,userpass = #{userpass}
                         WHERE userid = #{userid}
     </update>
 

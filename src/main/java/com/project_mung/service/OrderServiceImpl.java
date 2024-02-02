@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public
+class OrderServiceImpl implements OrderService{
 
     private final OrderMapper orderMapper;
 
@@ -68,6 +69,17 @@ public class OrderServiceImpl implements OrderService{
     public List<Cart> getOrderById(String orderId) {
         return orderMapper.getOrderById(orderId);
     }
+
+    @Override
+    public List<Order> getUserOrders(String userid, int startIndex, int pageSize) {
+        return orderMapper.getUserOrders(userid,startIndex,pageSize);
+    }
+
+    @Override
+    public int getTotalUserOrders(String userid) {
+        return orderMapper.getTotalUserOrders(userid);
+    }
+
 
     @Override
     public Boolean saveOrder(Order order) {

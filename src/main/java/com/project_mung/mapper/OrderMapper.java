@@ -28,5 +28,11 @@ public interface OrderMapper {
 
     List<Order> getUserOrders(String userid);
 
+    List<Order> getUserOrders(String userid, int startIndex, int pageSize);
+
+    int getTotalUserOrders(String userid);
+
+
+
     List<Cart> getOrderById(String orderId);
 }

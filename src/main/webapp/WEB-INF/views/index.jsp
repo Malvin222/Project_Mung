@@ -41,4 +41,15 @@
 
 
 </body>
+<script>
+    var error = "${error}";
+    if (error && error.trim() !== "") {
+        alert(error);
+    }
+    var message = "${message}";
+    if (message && message.trim() !== "") {
+        alert(message);
+    }
+</script>
+
 </html>

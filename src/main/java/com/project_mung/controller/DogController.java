@@ -223,16 +223,47 @@
             return "success";
         }
 
-        @RequestMapping("/dog/orderList")
-        public String getUserOrderList(HttpSession session, Model model) {
+//        @RequestMapping("/dog/orderList")
+//        public String getUserOrderList(HttpSession session, Model model) {
+//
+//            User user = (User) session.getAttribute("user");
+//            String userid = user.getUserid();
+//
+//            List<Order> userOrderList = orderService.getUserOrders(userid);
+//            model.addAttribute("userOrderList", userOrderList);
+//            return "dog/orderList";
+//        }
 
+        @RequestMapping("/dog/orderList")
+        public String getUserOrderList(HttpSession session, Model model,
+                                       @RequestParam(name = "page", defaultValue = "1") int page) {
+            // 세션에서 사용자 정보 가져오기
             User user = (User) session.getAttribute("user");
             String userid = user.getUserid();
 
-            List<Order> userOrderList = orderService.getUserOrders(userid);
+            // 페이지당 아이템 수
+            int pageSize = 10;
+
+            // 전체 주문 수 가져오기
+            int totalOrders = orderService.getTotalUserOrders(userid);
+
+            // 전체 페이지 수 계산
+            int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+
+            // 현재 페이지에서 가져올 주문 목록의 시작 인덱스 계산
+            int startIndex = (page - 1) * pageSize;
+
+            // 현재 페이지에 해당하는 주문 목록 가져오기
+            List<Order> userOrderList = orderService.getUserOrders(userid, startIndex, pageSize);
+
+            // 모델에 필요한 데이터 추가
             model.addAttribute("userOrderList", userOrderList);
+            model.addAttribute("currentPage", page); // 현재 페이지 번호
+            model.addAttribute("totalPages", totalPages); // 전체 페이지 수
+
             return "dog/orderList";
         }
+
 
         @RequestMapping("/dog/orderDetail/{orderId}")
         public String getOrderDetail(@PathVariable String orderId, Model model, HttpSession session) {

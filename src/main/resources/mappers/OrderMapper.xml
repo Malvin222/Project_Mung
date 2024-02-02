@@ -101,6 +101,14 @@
 
     </select>
 
+
+    <select id="getTotalUserOrders" resultType="int" parameterType="string">
+        SELECT COUNT(*)
+        FROM `order`
+        WHERE userid = #{userid}
+    </select>
+
+
     <select id="getOrderById" resultType="com.project_mung.domain.Cart">
         SELECT o.*, c.*
         FROM `order` o

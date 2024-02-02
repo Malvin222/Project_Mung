@@ -16,7 +16,7 @@
 
 <div class="login-container">
     <c:if test="${not empty sessionScope.user}">
-        <div>${sessionScope.user.userid}</div>
+        <div><a href="/user/modify">${sessionScope.user.userid}</a></div>
         <div>|</div>
         <div id="logout"><a href="/user/logout">로그아웃</a></div>
     </c:if>

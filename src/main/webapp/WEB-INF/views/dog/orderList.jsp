@@ -6,7 +6,7 @@
     <title>주문조회</title>
     <link rel="stylesheet" type="text/css" href="/css/order.css">
 </head>
-
+<body>
 <%-- 로그인 --%>
 <div class="login-container">
         <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
@@ -16,7 +16,7 @@
 
 <div class="login-container">
     <c:if test="${not empty sessionScope.user}">
-    <div>${sessionScope.user.userid}</div>
+        <div><a href="/user/modify">${sessionScope.user.userid}</a></div>
         <div>|</div>
         <div id="logout"><a href="/user/logout">로그아웃</a></div>
     </c:if>
@@ -56,6 +56,49 @@
         </tr>
     </c:forEach>
 </table>
+
+<!-- 페이징 처리 -->
+<div class="pagination">
+    <!-- 이전 페이지로 이동하는 화살표 -->
+    <a href="javascript:void(0);" onclick="goToPage(${currentPage - 5})" class="arrow ${currentPage > 1 ? '' : 'disabled'}">❮</a>
+
+    <!-- 페이지 버튼 표시 -->
+    <c:forEach var="pageNumber" begin="1" end="${totalPages}" varStatus="loop">
+        <c:if test="${pageNumber >= currentPage - 5 && pageNumber <= currentPage + 5}"> <!-- 현재 페이지 기준 전후 5개까지만 표시 -->
+            <a href="javascript:void(0);" onclick="goToPage(${pageNumber})" class="page-number ${pageNumber eq currentPage ? 'active' : ''}">${pageNumber}</a>
+        </c:if>
+    </c:forEach>
+
+    <!-- 다음 페이지로 이동하는 화살표 -->
+    <a href="javascript:void(0);" onclick="goToPage(${currentPage + 5})" class="arrow ${currentPage < totalPages ? '' : 'disabled'}">❯</a>
+</div>
+
+
+<script>
+    var totalPages = ${totalPages}; // 전체 페이지 수
+
+    function goToPage(pageNumber) {
+        var pageSize = 10; // 페이지 당 아이템 수
+
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            // 현재 페이지에서 가져올 주문 목록의 시작 인덱스 계산
+            var startIndex = (pageNumber - 1) * pageSize;
+
+            // 페이지 이동을 위한 URL 생성
+            var url = "/dog/orderList?page=" + pageNumber;
+
+            // 페이지 이동
+            window.location.href = url;
+
+
+
+        }
+    }
+</script>
+
+
+
+
 
 <!-- Footer -->
 <footer>
