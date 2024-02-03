@@ -185,6 +185,7 @@
             model.addAttribute("totalPrice",totalPrice);
             model.addAttribute("deliveryList",deliveryList);
 
+
 //            Enumeration<String> attributeNames = session.getAttributeNames();
 //
 //            // 각 속성에 대한 정보 출력
@@ -253,11 +254,17 @@
             // 현재 페이지에서 가져올 주문 목록의 시작 인덱스 계산
             int startIndex = (page - 1) * pageSize;
 
-            // 현재 페이지에 해당하는 주문 목록 가져오기
-            List<Order> userOrderList = orderService.getUserOrders(userid, startIndex, pageSize);
+            // 현재 페이지의 시작 인덱스와 끝 인덱스 계산
+            int endIndex = Math.min(startIndex + pageSize, totalOrders);
+
+            // 주문 목록 가져오기
+            List<Order> userOrderList = orderService.getUserOrders(userid);
+
+            // 현재 페이지에 해당하는 부분집합 추출
+            List<Order> currentPageList = userOrderList.subList(startIndex, endIndex);
 
             // 모델에 필요한 데이터 추가
-            model.addAttribute("userOrderList", userOrderList);
+            model.addAttribute("userOrderList", currentPageList);
             model.addAttribute("currentPage", page); // 현재 페이지 번호
             model.addAttribute("totalPages", totalPages); // 전체 페이지 수
 
