@@ -20,8 +20,8 @@
 <%-- 로그인 --%>
 <div class="login-container">
     <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
-    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
-    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
 </div>
 
 <div class="login-container">
@@ -122,67 +122,6 @@
         }
     }
 </script>
-
-
-
-
-
-<%--<div class="addr-container">--%>
-<%--    <table>--%>
-
-<%--        <tr>--%>
-<%--            <td><button type="button" id="deliveryManage">배송지 관리</button></td>--%>
-<%--        <tr>--%>
-<%--            <td>--%>
-<%--                <!-- 각 배송지에 대한 루프 -->--%>
-<%--                <c:forEach var="delivery" items="${deliveryList}">--%>
-<%--                    <input type="hidden" id="deliveryid" name="deliveryid" value="${delivery.deliveryid}">--%>
-<%--                    <!-- 각 배송지에 대한 라디오 버튼 및 라벨 -->--%>
-<%--                    <input type="radio" id="${delivery.deliveryname}" name="address" value="${delivery.deliveryname}"--%>
-<%--                           style="width: 10px; height: 15px;"--%>
-<%--                           onclick="setDeliveryInfo('${delivery.deliveryname}'--%>
-<%--                                   , '${delivery.customerphone}'--%>
-<%--                                   , '${delivery.deliverypostcode}'--%>
-<%--                                   , '${delivery.deliveryaddress}'--%>
-<%--                                   , '${delivery.deliverydetailaddr}'--%>
-<%--                                   , '${delivery.deliveryid}')"--%>
-<%--                           <c:if test="${delivery.deliveryname eq '기본배송지'}">checked</c:if>>--%>
-<%--                    <label for="${delivery.deliveryname}">${delivery.deliveryname}</label>--%>
-<%--                </c:forEach>--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-
-
-<%--        <tr>--%>
-<%--            <td><input type="text" name="customerphone" id="customerphone" placeholder="전화번호를 입력해주세요"></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><input type="text" name="deliverypostcode" id="deliverypostcode" placeholder="우편번호를 입력해주세요">--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="주소를 입력해주세요"></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td><input type="text" id="deliverydetailaddr" name="deliverydetailaddr"  placeholder="상세주소"></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <td>--%>
-<%--                <select id="deliveryoption" name="deliveryoption">--%>
-<%--                    <option value="door">부재 시 문 앞에 놓아주세요.</option>--%>
-<%--                    <option value="call">배송 전 연락바랍니다.</option>--%>
-<%--                    <option value="security">부재 시 경비실에 맡겨주세요.</option>--%>
-<%--                    <option value="custom">직접 입력</option>--%>
-<%--                </select>--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-<%--        <tr id="custom-input" style="display:none;">--%>
-<%--            <td>--%>
-<%--                <input type="text" id="custom-text" name="custom-text" placeholder="배송메모를 입력해주세요.">--%>
-<%--            </td>--%>
-<%--        </tr>--%>
-<%--    </table>--%>
-<%--</div>--%>
 
 <div class="h2-container">
     <h2>주문상품</h2>
@@ -366,7 +305,7 @@
     function saveOrder(userid, paymentmethod, deliveryid, orderdate, merchantuid) {
         $.ajax({
             type: 'POST',
-            url: '/order/saveOrder',
+            url: '/order/saveOrderInfo',
             contentType: 'application/json', // 미디어 타입 설정
             data: JSON.stringify({
                 userid: userid,
@@ -379,7 +318,7 @@
                 if (response === 'success') {
                     alert("저장성공")
                     // 여기에 필요한 추가 로직을 수행하세요.
-                    window.location.href = "/dog/orderList";
+                    window.location.href = "/order/dogOrderList";
 
                 } else {
                     alert("저장실패"+response)

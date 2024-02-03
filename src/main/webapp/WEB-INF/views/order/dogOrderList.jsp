@@ -1,17 +1,20 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <html>
 <head>
     <title>주문조회</title>
     <link rel="stylesheet" type="text/css" href="/css/order.css">
 </head>
 <body>
+
 <%-- 로그인 --%>
 <div class="login-container">
-        <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
-        <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
-        <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
+    <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
 </div>
 
 <div class="login-container">
@@ -44,7 +47,7 @@
                 <label for="${order.orderdate}" class="order-status">결제완료</label>
             </td>
             <td>
-                <button type="button" class="orderDetail" onclick="location='/dog/orderDetail/${order.orderid}'">결제상세</button>
+                <button type="button" class="orderDetail" onclick="location='/order/dogOrderDetail/${order.orderid}'">결제상세</button>
                 <div class="order-date">${order.orderdate}<span> 결제</span></div>
                 <div class="order-item">${order.dogfoodname}
                     <c:if test="${order.countOrder-1 != 0}">
@@ -85,7 +88,7 @@
             var startIndex = (pageNumber - 1) * pageSize;
 
             // 페이지 이동을 위한 URL 생성
-            var url = "/dog/orderList?page=" + pageNumber;
+            var url = "/order/dogOrderList?page=" + pageNumber;
 
             // 페이지 이동
             window.location.href = url;

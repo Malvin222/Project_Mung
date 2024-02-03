@@ -1,6 +1,9 @@
 package com.project_mung.controller;
 
+import com.project_mung.domain.Delivery;
 import com.project_mung.domain.User;
+import com.project_mung.mapper.OrderMapper;
+import com.project_mung.service.OrderService;
 import com.project_mung.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -24,11 +29,15 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/join")
     public String userJoin() {
         return "user/join";
     }
 
+    // 회원가입
     @PostMapping("/join")
     public String insertUser(@ModelAttribute User user, Model model) {
         try {
@@ -48,31 +57,14 @@ public class UserController {
         }
     }
 
+
     @GetMapping("/modify")
     public String usermodify() {
-
         return "user/modify";
     }
 
-//    @PostMapping("/modifySave")
-//    public String modifySave(@ModelAttribute User user,Model model,HttpSession session){
-//        try {
-//            userService.modifyUser(user);
-//
-//            User updatedUser = userService.getUserById(user.getUserid());
-//            session.setAttribute("user", updatedUser);
-//            model.addAttribute("message", "회원 정보가 수정되었습니다.");
-//            return "redirect:/";
-//        } catch (DataIntegrityViolationException e) {
-//            model.addAttribute("error", "데이터 무결성 오류가 발생했습니다.");
-//            return "user/modify";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            model.addAttribute("error", "회원 정보 수정중 오류가 발생했습니다.");
-//            return "user/modify";
-//        }
-//    }
 
+    // 회원 정보 수정
     @PostMapping("/modifySave")
     public String modifySave(@ModelAttribute User user, Model model, HttpSession session,
                              @RequestParam("currentPassword") String currentPassword,
@@ -115,13 +107,13 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/login")
     public String getLogin() {
 
         return "user/login";
     }
 
+    // 로그인
     @PostMapping("/login")
     public String loginUser(@RequestParam("userid") String userid,
                             @RequestParam("userpass") String userpass,
@@ -140,12 +132,74 @@ public class UserController {
         }
     }
 
+
+    // 로그아웃
     @GetMapping("/logout")
     public String logoutUser(HttpSession session) {
         // 세션에서 사용자 정보 제거
         session.invalidate();
         return "redirect:/";
     }
+
+    // 배송지 관련 //
+
+    // 배송지 정보 목록(팝업)
+    @GetMapping("/delivery")
+    public String delivery(HttpSession session,Model model){
+
+        User user = (User) session.getAttribute("user");
+        String userid = user.getUserid();
+
+        List<Delivery> deliveryList = orderService.getDelivery(userid);
+        model.addAttribute("deliveryList",deliveryList);
+
+        log.info(deliveryList);
+
+        return "user/delivery";
+    }
+
+    // 신규 배송지 저장
+    @PostMapping("/deliverySave")
+    @ResponseBody
+    public String deliverySave(Delivery delivery){
+
+        Boolean deleverySave = orderService.insertDelivery(delivery);
+
+        if(deleverySave){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+    // 배송지 수정
+    @PostMapping("/deliveryModify")
+    @ResponseBody
+    public String deliveryModify(Delivery delivery){
+
+        Boolean deliveryModify = orderService.modifyDelivery(delivery);
+
+        if(deliveryModify){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+    // 배송지 삭제
+    @PostMapping("/deliveryRemove")
+    @ResponseBody
+    public String deliveryRemove(int deliveryid){
+        Boolean deliveryRemove = orderService.deleteDelivery(deliveryid);
+
+        if(deliveryRemove){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+
 
 
 }

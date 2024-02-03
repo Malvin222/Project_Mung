@@ -13,8 +13,8 @@
 <%-- 로그인 --%>
 <div class="login-container">
     <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
-    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
-    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
 </div>
 
 <div class="login-container">
@@ -89,13 +89,6 @@
     </table>
 
 </div>
-
-<%--<div align="right">--%>
-<%--    <table class="total-container" >--%>
-<%--        <tr><td><h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2></td></tr>--%>
-<%--        <tr><td><button class="order-button" onclick="placeOrder()" style="text-align:center">주문하기</button></td></tr>--%>
-<%--    </table>--%>
-<%--</div>--%>
 
 <div class="total-container" align="right">
     <h2 class="total-price">주문금액 <strong id="orderTotalAmount" style="font-size: 28px;"></strong>원</h2>
@@ -314,13 +307,13 @@
 
         // AJAX를 사용하여 서버에 선택된 상품들의 정보를 전송 ->dogCotroller addToOrder
         $.ajax({
-            url: "/dog/addToOrder",
+            url: "/order/dogOrderSave",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(selectedItems),
             success: function (data) {
                 if(data === "success"){
-                    window.location.href = "/dog/order";
+                    window.location.href = "/order/dogOrder";
                 }
             },
             error: function () {

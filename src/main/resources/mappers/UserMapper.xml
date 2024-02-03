@@ -3,6 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project_mung.mapper.UserMapper">
 
+    <!-- 회원가입 -->
     <insert id="insertUser">
         INSERT INTO user (userid
                           ,userpass
@@ -22,24 +23,26 @@
                        ,#{useremail})
     </insert>
 
+    <!-- 유저 정보 -->
     <select id="getLoginInfo" resultType="com.project_mung.domain.User">
         SELECT * FROM user
         WHERE userid = #{userid}
     </select>
 
+    <!-- 카카오 로그인 -->
     <select id="findByUserEmail" resultType="com.project_mung.domain.User">
         SELECT *
         FROM user
         WHERE useremail = #{useremail}
     </select>
 
-
+    <!-- 회원/관리자 구분(사용x) -->
     <insert id="insertUserRole" parameterType="com.project_mung.domain.UserRole">
         INSERT INTO userrole (userid, role)
         VALUES (#{userid}, #{role});
     </insert>
 
-    <!--기본배송지 추가-->
+    <!-- 회원가입시 기본배송지 추가 -->
     <insert id="insertUserDelivery">
         INSERT INTO delivery ( userid
                              , deliveryname
@@ -58,6 +61,7 @@
                )
     </insert>
 
+    <!-- 회원 정보 수정 -->
     <update id="modifyUser" >
         UPDATE user SET userphone = #{userphone}
                         ,userpostcode = #{userpostcode}
@@ -68,6 +72,7 @@
                         WHERE userid = #{userid}
     </update>
 
+    <!-- 수정된 사용자 정보를 세션에 설정 -->
     <select id="getUserById">
         SELECT * FROM user WHERE userid =#{userid}
     </select>

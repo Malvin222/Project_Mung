@@ -1,17 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <html>
 <head>
     <title>주문 정보 상세페이지</title>
     <link rel="stylesheet" type="text/css" href="/css/order.css">
 </head>
 <body>
+
 <%-- 로그인 --%>
 <div class="login-container">
     <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
-    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
-    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
 </div>
 
 <div class="login-container">

@@ -3,6 +3,7 @@ package com.project_mung.controller;
 import com.project_mung.domain.User;
 import com.project_mung.domain.Cart;
 import com.project_mung.service.CartService;
+import com.project_mung.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,17 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
+    private final OrderService orderService;
 
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, OrderService orderService) {
+
         this.cartService = cartService;
+        this.orderService = orderService;
     }
 
 
-    //장바구니 추가
+    // 장바구니 추가
     @PostMapping("/cart/addToCart")
     @ResponseBody
     public String addToCart(@RequestParam int dogfoodid,
@@ -72,8 +76,7 @@ public class CartController {
         return "success";
     }
 
-
-    //장바구니 수량 변경
+    // 장바구니 수량 변경(숫자로 입력 변경)
     @PostMapping("/cart/updateItemCnt")
     @ResponseBody
     public String updateItemCnt(@RequestParam int cartid,
@@ -89,7 +92,7 @@ public class CartController {
         }
     }
 
-    // 장바구니 수량 변경
+    // 장바구니 수량 변경(-,+ 버튼 변경)
     @PostMapping("/cart/changeQuantity")
     @ResponseBody
     public String changeQuantity(@RequestParam int cartid,
@@ -104,7 +107,7 @@ public class CartController {
         }
     }
 
-    // 선택 삭제
+    // 장바구니 선택 삭제
     @PostMapping("/cart/removeSelected")
     @ResponseBody
     public String removeSelectedItems(@RequestBody List<Long> selectedItems) {
@@ -116,6 +119,36 @@ public class CartController {
             return "error";
         }
     }
+
+    // 장바구니 목록 조회
+    @GetMapping("/cart/dogCart")
+    public String dogCartPage(Model model, HttpSession session){
+
+        //세션에서 사용자 아이디 가져오기
+        User user = (User) session.getAttribute("user");
+
+        // 세션에 사용자 정보가 없을 경우 로그인 페이지로 리다이렉트
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+
+        String userid = user.getUserid();
+
+        //세션에서 사용자 아이디를 통해 장바구니에 담김 상품 목록 조회
+        List<Cart> cartItems =cartService.getCartItems(userid);
+
+        //총 금액 계산
+        int totalPrice = cartService.totalPrice(cartItems);
+
+        //모델에 데이터 추가
+        model.addAttribute("cartItems",cartItems);
+        model.addAttribute("totalPrice",totalPrice);
+        return "cart/dogCart";
+    }
+
+
+
+
 
 
 

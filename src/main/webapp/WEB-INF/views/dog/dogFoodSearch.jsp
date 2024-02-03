@@ -17,8 +17,8 @@
 <%-- 로그인 --%>
 <div class="login-container">
     <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
-    <div><a href="/dog/orderList"><img src="/imgs/user.png" height="40px"></a></div>
-    <div><a href="/dog/cart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
+    <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
 </div>
 
 <div class="login-container">
@@ -38,14 +38,6 @@
 <div class="main-logo" align="center">
     <a href="/"><img src="/imgs/mung-logo.png" width="250"></a>
 </div>
-
-
-<!-- 장바구니 로고 -->
-<%--<div class="cart-container-search" align="right">--%>
-<%--    <a href="/dog/cart"><img src="/imgs/cart-logo.png" width="50"></a>--%>
-<%--</div>--%>
-
-
 
 <!-- 체크 그룹 컨테이너 -->
 <div class="checkbox-group-container">
