@@ -17,8 +17,10 @@
 <%-- 로그인 --%>
 <div class="login-container">
     <div><a href="/dog/dogFoodSearch"><img src="/imgs/home.png" height="40px"></a></div>
+    <c:if test="${not empty sessionScope.user}">
     <div><a href="/order/dogOrderList"><img src="/imgs/user.png" height="40px"></a></div>
     <div><a href="/cart/dogCart"><img src="/imgs/shopping-cart.png" height="40px"></a></div>
+    </c:if>
 </div>
 
 <div class="login-container">
@@ -26,11 +28,6 @@
         <div><a href="/user/modify">${sessionScope.user.userid}</a></div>
         <div>|</div>
         <div id="logout"><a href="/user/logout">로그아웃</a></div>
-    </c:if>
-    <c:if test="${empty sessionScope.user}">
-        <script>
-            window.location.href = "/user/login";
-        </script>
     </c:if>
 </div>
 

@@ -316,7 +316,6 @@
             }),
             success: function (response) {
                 if (response === 'success') {
-                    alert("저장성공")
                     // 여기에 필요한 추가 로직을 수행하세요.
                     window.location.href = "/order/dogOrderList";
 

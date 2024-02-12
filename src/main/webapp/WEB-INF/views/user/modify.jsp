@@ -23,13 +23,13 @@
   <input type="text" id="userid" name="userid" value="${sessionScope.user.userid}" readonly><br>
 
   <!-- 비밀번호 입력 상자 -->
+  <label for="currentPassword">현재 비밀번호</label>
+  <input type="password" id="currentPassword" name="currentPassword" value="" required><br>
   <div id="passwordSection" style="display: none;">
-    <label for="currentPassword">현재 비밀번호</label>
-    <input type="password" id="currentPassword" name="currentPassword" required><br>
     <label for="newPassword">새 비밀번호</label>
-    <input type="password" id="newPassword" name="newPassword" required><br>
+    <input type="password" id="newPassword" name="newPassword"><br>
     <label for="confirmPassword">새 비밀번호 확인</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+    <input type="password" id="confirmPassword" name="confirmPassword"><br>
   </div>
 
   <!-- 비밀번호 수정 버튼 -->
@@ -77,6 +77,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     // 비밀번호 수정 버튼 클릭 시 비밀번호 입력 상자를 표시하고 버튼을 숨깁니다.
     document.getElementById('modifypass').addEventListener('click', function() {
+      document.getElementById('passwordSection').value="";
       document.getElementById('passwordSection').style.display = 'block';
       document.getElementById('modifypass').style.display = 'none';
     });

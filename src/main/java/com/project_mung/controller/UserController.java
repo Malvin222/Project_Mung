@@ -68,8 +68,8 @@ public class UserController {
     @PostMapping("/modifySave")
     public String modifySave(@ModelAttribute User user, Model model, HttpSession session,
                              @RequestParam("currentPassword") String currentPassword,
-                             @RequestParam("newPassword") String newPassword,
-                             @RequestParam("confirmPassword") String confirmPassword) {
+                             @RequestParam(value = "newPassword", required = false) String newPassword,
+                             @RequestParam(value = "confirmPassword", required = false) String confirmPassword) {
         // 세션에서 현재 사용자 정보를 가져옵니다.
         User currentUser = (User) session.getAttribute("user");
 
@@ -80,14 +80,20 @@ public class UserController {
         }
 
         // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인합니다.
-        if (!newPassword.equals(confirmPassword)) {
+        if (newPassword != null && !newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "새로운 비밀번호가 일치하지 않습니다.");
             return "user/modify";
         }
 
         try {
-            // 새로운 비밀번호를 암호화하여 사용자 정보에 설정합니다.
-            user.setUserpass(passwordEncoder.encode(newPassword));
+            if (newPassword != null && !newPassword.isEmpty()) {
+                // 새로운 비밀번호를 암호화하여 사용자 정보에 설정합니다.
+                user.setUserpass(passwordEncoder.encode(newPassword));
+            } else {
+                // 새로운 비밀번호를 입력하지 않은 경우에는 기존의 비밀번호를 설정합니다.
+                user.setUserpass(currentUser.getUserpass());
+            }
+
             // UserService를 통해 사용자 정보를 수정합니다.
             userService.modifyUser(user);
 
@@ -106,6 +112,7 @@ public class UserController {
             return "user/modify";
         }
     }
+
 
     @GetMapping("/login")
     public String getLogin() {

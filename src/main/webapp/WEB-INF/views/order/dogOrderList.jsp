@@ -40,6 +40,9 @@
 </div>
 
 <table class="order-info">
+    <c:if test="${empty userOrderList}">
+        <tr><td>주문 내역이 없습니다.</td></tr>
+    </c:if>
     <!-- 각 배송지에 대한 루프 -->
     <c:forEach var="order" items="${userOrderList}">
         <tr>
@@ -59,6 +62,8 @@
         </tr>
     </c:forEach>
 </table>
+
+
 
 <!-- 페이징 처리 -->
 <div class="pagination">
