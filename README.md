@@ -25,7 +25,7 @@ Spring Boot, JSP, MySQL 그리고 Spring Security를 사용하였고 AWS EC2를 
 ## ✔️ 개발 환경
 * Java 17.0
 * Front : JSP / Javascript / jQuery
-* Server : Apache Tomcat 9.0 / AWS EC2
+* Server : Apache Tomcat 9.0 / AWS EC2 / AWS RDS
 * Framework : SpringBoot 3.1.0 / Spring Security 6.0
 * Database : MYSQL 8.0.36
 * ORM : MyBatis
@@ -83,13 +83,12 @@ Spring Boot, JSP, MySQL 그리고 Spring Security를 사용하였고 AWS EC2를 
 <br><br><br>
 
 
-* ### <a href="https://github.com/zzheek/Project_Mung/blob/fa8857cbcdab2799f4d20f0a7599a3164616e5b3/src/main/java/com/project_mung/controller/UserController.java#L67-L114">회원정보수정</a>
-  * JavaScript를 사용하여 비밀번호 수정 버튼을 클릭하면 새로운 비밀번호 입력 상자가 표시되도록 구현되었습니다.
-  * 서버에서는 사용자가 입력한 정보를 받아와서 데이터베이스에 저장하고, 수정된 정보를 세션에 업데이트합니다.
+* ### <a href="https://github.com/zzheek/Project_Mung/blob/main/src/main/webapp/WEB-INF/views/user/delivery.jsp">배송지 관리 및 우편번호 API</a>
   * Daum 우편번호 서비스 API를 이용하여 사용자가 입력한 주소의 우편번호를 검색하고, 주소를 입력할 수 있습니다.
+  * 배송지 관리를 클릭하면 Ajax를 사용하여 배송지 정보를 추가, 수정, 삭제할 때 비동기적으로 서버와 통신합니다.
  
 <p align="center">
-  <img src="https://github.com/zzheek/Project_Mung/assets/133830185/920ca8a8-f09e-4f06-bbe4-766de336daa3" width="70%">
+  <img src="https://github.com/zzheek/Project_Mung/assets/133830185/664c90e8-d41b-4364-b580-5cda14c95ce3" width="70%">
 </p>    
 <br><br><br>
 
